@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A 65-minute session plan for teaching Lizzie GitHub with the Lilelus demo repo.">
+<meta name="robots" content="noindex">
+<title>GitHub Session Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column; the 45-minute build is drawn as a commit history (a line with a dot per step). */
+:root {
+  --bg: #f6f7f3;
+  --surface: #ffffff;
+  --fg: #1d2420;
+  --muted: #5b665f;
+  --line: #dde3dc;
+  --main: #1f7a4d;        /* the main branch / merge green */
+  --main-soft: #e3f1e9;
+  --branch: #7a4fd0;      /* practice-branch purple */
+  --branch-soft: #efe9fb;
+  --warn: #9a5a00;
+  --warn-soft: #fff3df;
+  --code-bg: #eef1ec;
+  --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141815; --surface: #1c221e; --fg: #e8ede9; --muted: #a3ada6; --line: #2f3832;
+    --main: #4fc187; --main-soft: #1d3327; --branch: #b192f2; --branch-soft: #2a2340;
+    --warn: #f0b45a; --warn-soft: #3a2e1a; --code-bg: #252c27; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141815; --surface: #1c221e; --fg: #e8ede9; --muted: #a3ada6; --line: #2f3832;
+  --main: #4fc187; --main-soft: #1d3327; --branch: #b192f2; --branch-soft: #2a2340;
+  --warn: #f0b45a; --warn-soft: #3a2e1a; --code-bg: #252c27; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: 17px/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.page { max-width: 760px; margin: 0 auto; padding-block: 40px 72px; }
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 6vw, 2.9rem); letter-spacing: -0.015em; }
+h2 { font-size: 1.55rem; margin-bottom: 14px; }
+h3 { font-size: 1.15rem; }
+p { margin: 0 0 12px; }
+a { color: var(--main); font-weight: 700; text-underline-offset: 3px; }
+code, .mono { font-family: var(--mono); font-size: 0.86em; }
+code { background: var(--code-bg); padding: 1px 6px; border-radius: 5px; overflow-wrap: anywhere; }
+strong { font-weight: 700; }
+
+.label {
+  font: 700 0.74rem/1 var(--body);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Header */
+header { display: grid; gap: 14px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+.goal { font-size: 1.12rem; max-width: 62ch; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--muted); font-size: 0.95rem; }
+.meta b { color: var(--fg); }
+.links { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 0.95rem; }
+
+section { padding-top: 40px; }
+.section-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.section-head h2 { margin: 0; }
+.time { font: 500 0.82rem/1 var(--mono); color: var(--muted); }
+
+/* Checklists */
+.checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.checks li { display: flex; gap: 12px; align-items: flex-start; }
+.checks input { flex: none; width: 20px; height: 20px; margin-top: 3px; accent-color: var(--main); }
+.checks label { cursor: pointer; }
+.checks input:checked + label { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line); }
+
+.note {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--warn-soft);
+  color: var(--fg);
+  font-size: 0.96rem;
+}
+.note b { color: var(--warn); }
+
+/* Concept: metaphor table */
+.say { font-style: italic; color: var(--muted); }
+.table-wrap { overflow-x: auto; margin: 6px 0 4px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.97rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 700 0.74rem/1.2 var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+td:first-child { font-weight: 700; white-space: nowrap; }
+
+.graph { margin: 18px 0 6px; padding: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow-x: auto; }
+.graph pre { margin: 0; }
+
+.rule {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-left: 4px solid var(--main);
+  background: var(--main-soft);
+  border-radius: 0 10px 10px 0;
+}
+
+/* Build: commit-history timeline */
+.history { list-style: none; margin: 8px 0 0; padding: 0; position: relative; }
+.history::before {
+  content: ""; position: absolute; left: 11px; top: 14px; bottom: 14px; width: 3px;
+  background: var(--main); border-radius: 2px;
+}
+.commit { position: relative; padding: 0 0 26px 44px; }
+.commit:last-child { padding-bottom: 0; }
+.commit::before {
+  content: ""; position: absolute; left: 3px; top: 6px; width: 19px; height: 19px; border-radius: 50%;
+  background: var(--surface); border: 4px solid var(--main);
+}
+.commit.on-branch::before { border-color: var(--branch); }
+.commit.on-branch .card { border-color: color-mix(in srgb, var(--branch) 35%, var(--line)); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.card-top .mono { color: var(--muted); font-size: 0.78rem; display: block; margin-bottom: 4px; }
+.done { flex: none; display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--muted); cursor: pointer; }
+.done input { width: 18px; height: 18px; accent-color: var(--main); }
+.commit.is-done .card { opacity: 0.6; }
+
+.roles { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.roles > div { min-width: 0; }
+.roles ol, .roles ul { margin: 6px 0 0; padding-left: 20px; }
+.roles li { margin-bottom: 4px; }
+.predict {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--branch-soft);
+  font-size: 0.97rem;
+}
+.predict .label { color: var(--branch); margin-right: 6px; }
+.answer { color: var(--muted); font-size: 0.92rem; }
+.branch-tag { font-family: var(--mono); font-size: 0.8em; color: var(--branch); background: var(--branch-soft); padding: 1px 6px; border-radius: 5px; }
+
+/* Troubleshooting */
+.fixes { display: grid; gap: 10px; }
+details { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; }
+summary { cursor: pointer; font-weight: 700; }
+details p { margin: 8px 0 0; }
+
+/* Lizzie's sheet */
+.kid-sheet { background: var(--surface); border: 2px dashed var(--line); border-radius: 16px; padding: 22px; }
+.words { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px 20px; margin: 10px 0 0; }
+.words div { min-width: 0; }
+.words dt { font-family: var(--mono); font-weight: 500; color: var(--main); }
+.words dd { margin: 2px 0 0; font-size: 0.95rem; }
+.qs { margin: 8px 0 0; padding-left: 22px; display: grid; gap: 14px; }
+.blank { display: block; border-bottom: 1px solid var(--line); height: 26px; }
+
+:focus-visible { outline: 3px solid var(--branch); outline-offset: 2px; }
+
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .page { padding-block: 24px 56px; }
+  .roles { grid-template-columns: 1fr; }
+  .commit { padding-left: 36px; }
+  .card { padding: 14px; }
+  td:first-child { white-space: normal; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+body { margin: 0; }
+.site-bar { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between; padding-block: 14px; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
+.site-bar a { text-decoration: none; }
+.site-bar nav { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.show-answer { margin-left: 6px; padding: 2px 10px; border: 1.5px solid var(--branch); border-radius: 999px; background: transparent; color: var(--branch); font: 700 0.8rem var(--body); cursor: pointer; vertical-align: baseline; }
+.show-answer[aria-expanded="true"] { background: var(--branch); color: var(--surface); }
+.show-answer + .answer { margin-left: 6px; }
+@media print {
+  .site-bar, .show-answer { display: none !important; }
+  .answer[hidden] { display: inline !important; }
+}
+</style>
+</head>
+<body>
+
+
+<div class="page">
+  <div class="site-bar">
+    <a href="../../">← Lilelus Mini Bakery</a>
+    <nav>
+      <a href="../../github/">Lizzie's GitHub page</a>
+      <a href="GitHub_Session_Plan.pdf">Download the PDF</a>
+    </nav>
+  </div>
+  <header>
+    <span class="label">Session plan · 65 minutes</span>
+    <h1>GitHub: the magic recipe book</h1>
+    <p class="goal">By the end, Lizzie can say what a <strong>repo</strong>, <strong>commit</strong>, <strong>branch</strong> and <strong>pull request</strong> are, and she will have changed the live demo site herself, signed in to her own GitHub account.</p>
+    <div class="meta">
+      <span><b>10 min</b> idea</span>
+      <span><b>45 min</b> build</span>
+      <span><b>10 min</b> explain back + journal</span>
+    </div>
+    <div class="links">
+      <a href="https://github.com/sujjas/lilelus-html-css-js-demo" target="_blank" rel="noopener">The repo ↗</a>
+      <a href="https://lilelus-html-css-js-demo.vercel.app" target="_blank" rel="noopener">The live site ↗</a>
+      <a href="https://lilelus-html-css-js-demo.vercel.app/github/" target="_blank" rel="noopener">Her GitHub page ↗</a>
+      <a href="https://vercel.com/dashboard" target="_blank" rel="noopener">Vercel dashboard ↗</a>
+    </div>
+  </header>
+
+  <!-- Before class -->
+  <section id="prep">
+    <div class="section-head"><h2>Before class</h2><span class="time">about 15 min, on your own</span></div>
+    <ul class="checks" data-group="prep">
+      <li><input type="checkbox" id="prep-1"><label for="prep-1"><strong>Invite Lizzie to the repo.</strong> On GitHub, signed in as <code>sujjas</code>: <em>Settings → Collaborators → Add people</em>, then type her username. She accepts the invite from her email or <code>github.com/notifications</code>. Until she accepts, she can read the repo but can't change it.</label></li>
+      <li><input type="checkbox" id="prep-1b"><label for="prep-1b"><strong>Turn on her missions.</strong> Her GitHub page's missions only tick for her account. Put her username in <code>github/github.js</code> (the line <code>const LIZZIE_GITHUB = ""</code>), or send it to Claude to do.</label></li>
+      <li><input type="checkbox" id="prep-2" checked><label for="prep-2"><strong>Auto-update: already tested.</strong> On 23 November, pushing the new GitHub page to <code>main</code> put it live on Vercel within a minute, with no manual deploy. Nothing to do here.</label></li>
+      <li><input type="checkbox" id="prep-3"><label for="prep-3"><strong>Tabs on her laptop:</strong> her GitHub page, the repo and the live site. <strong>On yours:</strong> the Vercel dashboard for <code>lilelus-html-css-js-demo</code>.</label></li>
+      <li><input type="checkbox" id="prep-4"><label for="prep-4"><strong>Copy or print her sheet</strong> (the word bank and questions at the bottom of this page).</label></li>
+    </ul>
+    <p class="note"><b>Heads-up about preview links.</b> When you open a pull request, Vercel posts a <em>Preview</em> link. New Vercel projects protect previews behind a Vercel login, so it will open on your laptop but not on Lizzie's device. Show it on your screen. To make previews public, go to the Vercel project's <em>Settings → Deployment Protection</em>.</p>
+  </section>
+
+  <!-- Concept -->
+  <section id="idea">
+    <div class="section-head"><h2>The idea</h2><span class="time">10 min</span></div>
+    <p>Start with something she already knows: mum's recipe book. Now imagine a <em>magic</em> one that remembers every version of every recipe, ever.</p>
+    <p><strong>Use her GitHub page for this part.</strong> Go through <em>The words, in cake language</em> together, then let her play <em>Try it: bake a change</em>. It's a pretend recipe book where nothing can break, and it shows the whole plan below before she does it for real.</p>
+    <p class="say">Say it like this: “GitHub is a magic recipe book for websites. Every time we save a change, it keeps the old page too, so we can never really lose anything.”</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>GitHub word</th><th>In the recipe book</th><th>In our repo</th></tr></thead>
+        <tbody>
+          <tr><td>Repository (repo)</td><td>The whole recipe book</td><td><code>lilelus-html-css-js-demo</code></td></tr>
+          <tr><td>Commit</td><td>Saving a page, with a sticky note saying what changed</td><td>Each one gets a code, like <code>344a553</code></td></tr>
+          <tr><td>History</td><td>Every saved version of every page</td><td>The <em>2 commits</em> link on the repo page</td></tr>
+          <tr><td>Branch</td><td>A practice copy, to try a new recipe without spoiling the real book</td><td><span class="branch-tag">lizzie-new-heading</span> (we'll make it)</td></tr>
+          <tr><td>Pull request</td><td>“Mum, can my new recipe go in the real book?”</td><td>Someone checks the change before it's accepted</td></tr>
+          <tr><td>Merge</td><td>Mum says yes, and it's copied into the real book</td><td>The change joins <code>main</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:16px">Then add the last piece: <strong>Vercel watches the real book.</strong> Whenever <code>main</code> changes, Vercel bakes the website again, and the live site updates by itself.</p>
+
+    <div class="graph" aria-label="Diagram of today's plan: two existing commits on main, a practice branch with one new commit, then a merge back into main">
+      <svg viewBox="0 0 680 150" width="100%" role="img" aria-label="Two commits on main, a practice branch with one commit, then a merge back into main" style="display:block;max-width:680px;margin:0 auto">
+  <line x1="40" y1="105" x2="640" y2="105" style="stroke:var(--main)" stroke-width="5" stroke-linecap="round"/>
+  <path d="M260 105 C 300 105, 300 45, 350 45 L 430 45 C 480 45, 480 105, 520 105" fill="none" style="stroke:var(--branch)" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="80" cy="105" r="11" style="fill:var(--surface);stroke:var(--main)" stroke-width="5"/>
+  <circle cx="220" cy="105" r="11" style="fill:var(--surface);stroke:var(--main)" stroke-width="5"/>
+  <circle cx="390" cy="45" r="11" style="fill:var(--surface);stroke:var(--branch)" stroke-width="5"/>
+  <circle cx="560" cy="105" r="13" style="fill:var(--main);stroke:var(--main)" stroke-width="5"/>
+  <g style="font:600 13px var(--mono);fill:var(--fg)">
+    <text x="80" y="138" text-anchor="middle">344a553</text>
+    <text x="220" y="138" text-anchor="middle">f2f773b</text>
+    <text x="390" y="22" text-anchor="middle">new heading</text>
+    <text x="560" y="138" text-anchor="middle">site updates</text>
+  </g>
+  <g style="font:700 11px var(--body);letter-spacing:.06em">
+    <text x="40" y="85" style="fill:var(--muted)">MAIN</text>
+    <text x="440" y="72" style="fill:var(--branch)">LIZZIE-NEW-HEADING</text>
+  </g>
+</svg>
+    </div>
+    <p class="answer">This is today's whole plan in one picture. Show it at the start, then again at the end once she's done it.</p>
+
+    <div class="rule"><strong>The golden rule:</strong> this repo is public, so anyone in the world can read it, forever. Never put phone numbers, passwords or secret codes in it. (That's why the demo has no WhatsApp number.)</div>
+
+    <p style="margin-top:16px"><strong>Quick check before building:</strong> “If you break something on a practice branch, does the live site break?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-1">Show answer</button><span class="answer" id="ans-1" hidden>(No. Only <code>main</code> goes live.)</span></p>
+  </section>
+
+  <!-- Build -->
+  <section id="build">
+    <div class="section-head"><h2>The build</h2><span class="time">45 min</span></div>
+    <p>Each step is one dot in the history. <strong>Before every click, Lizzie predicts what will happen.</strong> She does the clicking on her own laptop, signed in as herself. You guide and ask the questions.</p>
+
+    <ol class="history">
+      <li class="commit" id="step-1">
+        <div class="card">
+          <div class="card-top">
+            <div><span class="mono">step 1 · 8 min</span><h3>Tour the recipe book</h3></div>
+            <label class="done"><input type="checkbox" id="done-1"> Done</label>
+          </div>
+          <div class="roles">
+            <div><span class="label">She clicks</span>
+              <ol><li>Open the repo.</li><li>Scroll slowly to the README at the bottom.</li></ol>
+            </div>
+            <div><span class="label">She checks</span>
+              <ul><li>Finds <code>index.html</code>, <code>style.css</code> and <code>script.js</code>: the same three layers from the demo.</li><li>Reads the README out loud.</li></ul>
+            </div>
+          </div>
+          <p class="predict"><span class="label">Predict</span>“What do you think the README is for?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-2">Show answer</button><span class="answer" id="ans-2" hidden>(It's the front page of the book: it tells visitors what the project is.)</span></p>
+        </div>
+      </li>
+
+      <li class="commit" id="step-2">
+        <div class="card">
+          <div class="card-top">
+            <div><span class="mono">step 2 · 7 min</span><h3>Time travel through the history</h3></div>
+            <label class="done"><input type="checkbox" id="done-2"> Done</label>
+          </div>
+          <div class="roles">
+            <div><span class="label">She clicks</span>
+              <ol><li>Click <em>2 commits</em> (top right of the file list).</li><li>Open <code>f2f773b</code>, then <code>344a553</code>.</li></ol>
+            </div>
+            <div><span class="label">She checks</span>
+              <ul><li>Reads each sticky note (the commit message).</li><li>Explains the colours: <strong>green = added</strong>, <strong>red = removed</strong>.</li></ul>
+            </div>
+          </div>
+          <p class="predict"><span class="label">Predict</span>“If we change just one word on one line, how many red and green lines will we see?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-3">Show answer</button><span class="answer" id="ans-3" hidden>(One red: the old line. One green: the new line.)</span></p>
+        </div>
+      </li>
+
+      <li class="commit on-branch" id="step-3">
+        <div class="card">
+          <div class="card-top">
+            <div><span class="mono">step 3 · 12 min</span><h3>Make a practice branch and change the heading</h3></div>
+            <label class="done"><input type="checkbox" id="done-3"> Done</label>
+          </div>
+          <div class="roles">
+            <div><span class="label">She clicks</span>
+              <ol>
+                <li>Open <code>index.html</code> and click the pencil (Edit).</li>
+                <li>Find <code>&lt;h1&gt;Today's cakes&lt;/h1&gt;</code> and type her new heading.</li>
+                <li>Click <em>Commit changes…</em></li>
+                <li>Choose <em>Create a new branch</em>, name it <span class="branch-tag">lizzie-new-heading</span>, then <em>Propose changes</em>.</li>
+              </ol>
+            </div>
+            <div><span class="label">She checks</span>
+              <ul>
+                <li>Decides the new heading.</li>
+                <li>Writes the commit message: what changed, in a few words, like <em>“Change heading to Lizzie's favourite cakes”</em>.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="predict"><span class="label">Predict</span>“Will the live site change now?” Then refresh the live site to check. <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-4">Show answer</button><span class="answer" id="ans-4" hidden>(No. The change is only on the practice branch.)</span></p>
+        </div>
+      </li>
+
+      <li class="commit on-branch" id="step-4">
+        <div class="card">
+          <div class="card-top">
+            <div><span class="mono">step 4 · 8 min</span><h3>Open a pull request and check the change</h3></div>
+            <label class="done"><input type="checkbox" id="done-4"> Done</label>
+          </div>
+          <div class="roles">
+            <div><span class="label">She clicks</span>
+              <ol>
+                <li>GitHub shows the pull request form. Click <em>Create pull request</em>.</li>
+                <li>Open the <em>Files changed</em> tab.</li>
+                <li>Wait about a minute for the Vercel bot comment. <em>You</em> open its <em>Preview</em> link on your laptop and show her.</li>
+              </ol>
+            </div>
+            <div><span class="label">She checks</span>
+              <ul>
+                <li>Checks the red and green lines match her prediction from step 2.</li>
+                <li>Looks at the preview and gives the verdict: “Is this what I wanted?”</li>
+              </ul>
+            </div>
+          </div>
+          <p class="predict"><span class="label">Predict</span>“Why would a real team check a change before it goes in the real book?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-5">Show answer</button><span class="answer" id="ans-5" hidden>(To catch mistakes before customers see them.)</span></p>
+        </div>
+      </li>
+
+      <li class="commit" id="step-5">
+        <div class="card">
+          <div class="card-top">
+            <div><span class="mono">step 5 · 5 min</span><h3>Merge it, and watch the live site change</h3></div>
+            <label class="done"><input type="checkbox" id="done-5"> Done</label>
+          </div>
+          <div class="roles">
+            <div><span class="label">She clicks</span>
+              <ol><li>Click <em>Merge pull request</em>, then <em>Confirm merge</em>.</li><li><em>You</em> show the new deployment appearing in your Vercel dashboard.</li></ol>
+            </div>
+            <div><span class="label">She checks</span>
+              <ul><li>Refreshes the live site on her own device every 30 seconds or so until her heading appears.</li></ul>
+            </div>
+          </div>
+          <p class="predict"><span class="label">Predict</span>“How long until the live site changes: one second, one minute, or one hour?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-6">Show answer</button><span class="answer" id="ans-6" hidden>(Usually under a minute.)</span></p>
+        </div>
+      </li>
+
+      <li class="commit" id="step-6">
+        <div class="card">
+          <div class="card-top">
+            <div><span class="mono">step 6 · 5 min · if there's time</span><h3>Undo it (nothing is ever lost)</h3></div>
+            <label class="done"><input type="checkbox" id="done-6"> Done</label>
+          </div>
+          <div class="roles">
+            <div><span class="label">She clicks</span>
+              <ol><li>On the merged pull request, click <em>Revert</em>.</li><li>Create the new pull request and merge it.</li></ol>
+            </div>
+            <div><span class="label">She checks</span>
+              <ul><li>Watches the live site go back to <em>Today's cakes</em>.</li><li>Opens the history and finds that even the undo is a commit.</li></ul>
+            </div>
+          </div>
+          <p class="predict"><span class="label">Predict</span>“After we undo it, is her heading gone forever?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-7">Show answer</button><span class="answer" id="ans-7" hidden>(No. It's still in the history and can be brought back.)</span></p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Troubleshooting -->
+  <section id="fixes">
+    <div class="section-head"><h2>If something goes wrong</h2></div>
+    <div class="fixes">
+      <details><summary>The live site didn't change after 2 minutes</summary>
+        <p>Check the Vercel dashboard. If there's no new deployment, the GitHub link isn't working: open the project's <em>Settings → Git</em> and connect <code>sujjas/lilelus-html-css-js-demo</code>. If there's a deployment marked <em>Error</em>, open it to read why. Meanwhile, use it as a teaching moment: “Real developers check the logs. Let's look.”</p>
+      </details>
+      <details><summary>The Preview link asks for a Vercel login</summary>
+        <p>That's Vercel's preview protection, so it's expected. Show the preview on your screen, or switch protection off under <em>Settings → Deployment Protection</em>.</p>
+      </details>
+      <details><summary>The pencil (Edit) button is grey</summary>
+        <p>She hasn't accepted the collaborator invite yet (check her email or <code>github.com/notifications</code>), or she's signed out.</p>
+      </details>
+      <details><summary>She typed the heading but the page looks broken</summary>
+        <p>A tag was probably deleted by accident, like the <code>&lt;/h1&gt;</code>. Look at the red and green lines in <em>Files changed</em>: the mistake will be there. Fix it with another commit on the same branch. It's great debugging practice.</p>
+      </details>
+    </div>
+  </section>
+
+
+  <!-- Tracking -->
+  <section id="tracking">
+    <div class="section-head"><h2>How to follow her work</h2><span class="time">any time</span></div>
+    <p>Everything she does in the repo is recorded by GitHub under her own name. She can see the same records you can, so nothing is hidden from her.</p>
+    <ul class="checks" data-group="track">
+      <li><input type="checkbox" id="trk-1"><label for="trk-1"><strong>Her GitHub page</strong> (<code>/github</code>): <em>Your missions</em> show what she's done, and <em>The recipe book diary</em> lists every change with who made it, when, and a <strong>Claude helped</strong> tag when Claude co-wrote it.</label></li>
+      <li><input type="checkbox" id="trk-2"><label for="trk-2"><strong>Email alerts:</strong> on the repo, click <em>Watch → All Activity</em>. You'll get an email for every pull request and comment she makes.</label></li>
+      <li><input type="checkbox" id="trk-3"><label for="trk-3"><strong>How she did it:</strong> open any pull request and read the <em>Files changed</em> tab for exactly what changed, and the commit messages for how she described it. Commits made with Claude end with <code>Co-Authored-By: Claude</code>.</label></li>
+      <li><input type="checkbox" id="trk-4"><label for="trk-4"><strong>Optional, so every change gets checked first:</strong> <em>Settings → Branches → Add rule</em> for <code>main</code>, tick <em>Require a pull request before merging</em>. Then nothing reaches the live site without a pull request you can see.</label></li>
+    </ul>
+  </section>
+
+  <!-- Explain back -->
+  <section id="explain">
+    <div class="section-head"><h2>Explain back + journal</h2><span class="time">10 min</span></div>
+    <ul class="checks" data-group="explain">
+      <li><input type="checkbox" id="exp-1"><label for="exp-1">Show the diagram from the start again, and have Lizzie walk through it using the recipe-book words.</label></li>
+      <li><input type="checkbox" id="exp-2"><label for="exp-2">She answers the questions on her sheet (below), out loud or written.</label></li>
+      <li><input type="checkbox" id="exp-2b"><label for="exp-2b">Open <em>Your missions</em> on her GitHub page together. The first two should now say <strong>Done ✓</strong>. Her name is in the diary too.</label></li>
+      <li><input type="checkbox" id="exp-3"><label for="exp-3"><strong>Prompt journal:</strong> she writes one change she'd like to make to the demo site next, as a prompt she'd give Claude. You don't run it yet.</label></li>
+    </ul>
+  </section>
+
+  <!-- Lizzie's sheet -->
+  <section id="sheet">
+    <div class="section-head"><h2>Lizzie's sheet</h2><span class="time">copy or print this part</span></div>
+    <div class="kid-sheet">
+      <h3>GitHub words</h3>
+      <dl class="words">
+        <div><dt>repository (repo)</dt><dd>The magic recipe book: the whole project and all its files.</dd></div>
+        <div><dt>commit</dt><dd>Saving your changes, with a note saying what you changed.</dd></div>
+        <div><dt>commit message</dt><dd>That note. Keep it short and clear.</dd></div>
+        <div><dt>history</dt><dd>Every saved version, ever. Nothing gets lost.</dd></div>
+        <div><dt>diff</dt><dd>The red and green lines that show exactly what changed.</dd></div>
+        <div><dt>main</dt><dd>The real book. Vercel puts this one on the live site.</dd></div>
+        <div><dt>branch</dt><dd>A practice copy where you can try things safely.</dd></div>
+        <div><dt>pull request</dt><dd>Asking “can my change go into main?”</dd></div>
+        <div><dt>merge</dt><dd>Saying yes: the change joins main.</dd></div>
+        <div><dt>revert</dt><dd>Undoing a change, with a new commit.</dd></div>
+      </dl>
+
+      <h3 style="margin-top:26px">Questions</h3>
+      <ol class="qs">
+        <li>In your own words, what is a commit? <span class="blank"></span></li>
+        <li>Why did we make a branch instead of changing <code>main</code> straight away? <span class="blank"></span></li>
+        <li>What happened to the live site when we merged, and why? <span class="blank"></span></li>
+        <li>Write a good commit message for: “I changed the button colour to green.” <span class="blank"></span></li>
+        <li>Why should you never put a phone number or password in a public repo? <span class="blank"></span></li>
+      </ol>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  const KEY = "github-session-checks";
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { saved = {}; }
+
+  const boxes = document.querySelectorAll('input[type="checkbox"]');
+  function paint(box) {
+    const step = box.closest(".commit");
+    if (step) step.classList.toggle("is-done", box.checked);
+  }
+  boxes.forEach(function (box) {
+    if (saved[box.id]) box.checked = true;
+    paint(box);
+    box.addEventListener("change", function () {
+      saved[box.id] = box.checked;
+      paint(box);
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) { /* not saved: fine */ }
+    });
+  });
+
+  document.querySelectorAll(".show-answer").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var ans = document.getElementById(btn.getAttribute("aria-controls"));
+      var open = ans.hidden;
+      ans.hidden = !open;
+      btn.setAttribute("aria-expanded", String(open));
+      btn.textContent = open ? "Hide answer" : "Show answer";
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
