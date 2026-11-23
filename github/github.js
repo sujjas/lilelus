@@ -6,10 +6,10 @@
 
 // ✏️ Lizzie's GitHub username (the name on her GitHub profile).
 // Missions only tick for this account.
-const LIZZIE_GITHUB = "";
+const LIZZIE_GITHUB = "Lizzie-bizi";
 
 // Our recipe book on GitHub
-const REPO = "sujjas/lilelus-html-css-js-demo";
+const REPO = "sujjas/lilelus";
 
 
 /* ---------- 1. Pretend practice ---------- */

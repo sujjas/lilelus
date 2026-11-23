@@ -214,7 +214,7 @@ body { margin: 0; }
       <span><b>10 min</b> explain back + journal</span>
     </div>
     <div class="links">
-      <a href="https://github.com/sujjas/lilelus-html-css-js-demo" target="_blank" rel="noopener">The repo ↗</a>
+      <a href="https://github.com/sujjas/lilelus" target="_blank" rel="noopener">The repo ↗</a>
       <a href="https://lilelus-html-css-js-demo.vercel.app" target="_blank" rel="noopener">The live site ↗</a>
       <a href="https://lilelus-html-css-js-demo.vercel.app/github/" target="_blank" rel="noopener">Her GitHub page ↗</a>
       <a href="https://vercel.com/dashboard" target="_blank" rel="noopener">Vercel dashboard ↗</a>
@@ -225,8 +225,8 @@ body { margin: 0; }
   <section id="prep">
     <div class="section-head"><h2>Before class</h2><span class="time">about 15 min, on your own</span></div>
     <ul class="checks" data-group="prep">
-      <li><input type="checkbox" id="prep-1"><label for="prep-1"><strong>Invite Lizzie to the repo.</strong> On GitHub, signed in as <code>sujjas</code>: <em>Settings → Collaborators → Add people</em>, then type her username. She accepts the invite from her email or <code>github.com/notifications</code>. Until she accepts, she can read the repo but can't change it.</label></li>
-      <li><input type="checkbox" id="prep-1b"><label for="prep-1b"><strong>Turn on her missions.</strong> Her GitHub page's missions only tick for her account. Put her username in <code>github/github.js</code> (the line <code>const LIZZIE_GITHUB = ""</code>), or send it to Claude to do.</label></li>
+      <li><input type="checkbox" id="prep-1" checked><label for="prep-1"><strong>Lizzie is already invited.</strong> Her account <code>Lizzie-bizi</code> has write access to the repo (<code>sujjas/lilelus</code>), so she can make branches and pull requests herself.</label></li>
+      <li><input type="checkbox" id="prep-1b" checked><label for="prep-1b"><strong>Her missions are on.</strong> Her GitHub page ticks missions for <code>Lizzie-bizi</code>. Nothing to do here.</label></li>
       <li><input type="checkbox" id="prep-2" checked><label for="prep-2"><strong>Auto-update: already tested.</strong> On 23 November, pushing the new GitHub page to <code>main</code> put it live on Vercel within a minute, with no manual deploy. Nothing to do here.</label></li>
       <li><input type="checkbox" id="prep-3"><label for="prep-3"><strong>Tabs on her laptop:</strong> her GitHub page, the repo and the live site. <strong>On yours:</strong> the Vercel dashboard for <code>lilelus-html-css-js-demo</code>.</label></li>
       <li><input type="checkbox" id="prep-4"><label for="prep-4"><strong>Copy or print her sheet</strong> (the word bank and questions at the bottom of this page).</label></li>
@@ -245,7 +245,7 @@ body { margin: 0; }
       <table>
         <thead><tr><th>GitHub word</th><th>In the recipe book</th><th>In our repo</th></tr></thead>
         <tbody>
-          <tr><td>Repository (repo)</td><td>The whole recipe book</td><td><code>lilelus-html-css-js-demo</code></td></tr>
+          <tr><td>Repository (repo)</td><td>The whole recipe book</td><td><code>lilelus</code></td></tr>
           <tr><td>Commit</td><td>Saving a page, with a sticky note saying what changed</td><td>Each one gets a code, like <code>344a553</code></td></tr>
           <tr><td>History</td><td>Every saved version of every page</td><td>The <em>2 commits</em> link on the repo page</td></tr>
           <tr><td>Branch</td><td>A practice copy, to try a new recipe without spoiling the real book</td><td><span class="branch-tag">lizzie-new-heading</span> (we'll make it)</td></tr>
@@ -420,13 +420,13 @@ body { margin: 0; }
     <div class="section-head"><h2>If something goes wrong</h2></div>
     <div class="fixes">
       <details><summary>The live site didn't change after 2 minutes</summary>
-        <p>Check the Vercel dashboard. If there's no new deployment, the GitHub link isn't working: open the project's <em>Settings → Git</em> and connect <code>sujjas/lilelus-html-css-js-demo</code>. If there's a deployment marked <em>Error</em>, open it to read why. Meanwhile, use it as a teaching moment: “Real developers check the logs. Let's look.”</p>
+        <p>Check the Vercel dashboard. If there's no new deployment, the GitHub link isn't working: open the project's <em>Settings → Git</em> and connect <code>sujjas/lilelus</code>. If there's a deployment marked <em>Error</em>, open it to read why. Meanwhile, use it as a teaching moment: “Real developers check the logs. Let's look.”</p>
       </details>
       <details><summary>The Preview link asks for a Vercel login</summary>
         <p>That's Vercel's preview protection, so it's expected. Show the preview on your screen, or switch protection off under <em>Settings → Deployment Protection</em>.</p>
       </details>
       <details><summary>The pencil (Edit) button is grey</summary>
-        <p>She hasn't accepted the collaborator invite yet (check her email or <code>github.com/notifications</code>), or she's signed out.</p>
+        <p>She's signed out, or signed in to a different account. She should be signed in as <code>Lizzie-bizi</code>.</p>
       </details>
       <details><summary>She typed the heading but the page looks broken</summary>
         <p>A tag was probably deleted by accident, like the <code>&lt;/h1&gt;</code>. Look at the red and green lines in <em>Files changed</em>: the mistake will be there. Fix it with another commit on the same branch. It's great debugging practice.</p>
