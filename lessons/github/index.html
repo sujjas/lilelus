@@ -207,7 +207,7 @@ body { margin: 0; }
   <header>
     <span class="label">Session plan · 65 minutes</span>
     <h1>GitHub: the magic recipe book</h1>
-    <p class="goal">By the end, Lizzie can say what a <strong>repo</strong>, <strong>commit</strong>, <strong>branch</strong> and <strong>pull request</strong> are, and she will have changed the live demo site herself, signed in to her own GitHub account.</p>
+    <p class="goal">By the end, Lizzie can say what a <strong>repo</strong>, <strong>commit</strong>, <strong>branch</strong> and <strong>pull request</strong> are, and she will have changed the words and added a real photo on mum's landing page herself, signed in to her own GitHub account.</p>
     <div class="meta">
       <span><b>10 min</b> idea</span>
       <span><b>45 min</b> build</span>
@@ -229,7 +229,8 @@ body { margin: 0; }
       <li><input type="checkbox" id="prep-1" checked><label for="prep-1"><strong>Lizzie is already invited.</strong> Her account <code>Lizzie-bizi</code> has write access to the repo (<code>sujjas/lilelus</code>), so she can make branches and pull requests herself.</label></li>
       <li><input type="checkbox" id="prep-1b" checked><label for="prep-1b"><strong>Her missions are on.</strong> Her GitHub page ticks missions for <code>Lizzie-bizi</code>. Nothing to do here.</label></li>
       <li><input type="checkbox" id="prep-2" checked><label for="prep-2"><strong>Auto-update: already tested.</strong> On 23 November, pushing the new GitHub page to <code>main</code> put it live on Vercel within a minute, with no manual deploy. Nothing to do here.</label></li>
-      <li><input type="checkbox" id="prep-3"><label for="prep-3"><strong>Tabs on her laptop:</strong> her GitHub page, the repo and the practice bakery. <strong>On yours:</strong> the Vercel dashboard for <code>lilelus</code>.</label></li>
+      <li><input type="checkbox" id="prep-photo"><label for="prep-photo"><strong>Photos and words ready.</strong> With mum, pick 1–2 cake photos she's happy to share (cake only, no faces, landscape, under 1 MB) and save them on Lizzie's laptop with simple names like <code>birthday-cake.jpg</code>. Agree which words to change, like the headline or a cake description, using her client interview notes.</label></li>
+      <li><input type="checkbox" id="prep-3"><label for="prep-3"><strong>Tabs on her laptop:</strong> her GitHub page, the repo and mum's live site. <strong>On yours:</strong> the Vercel dashboard for <code>lilelus</code>.</label></li>
       <li><input type="checkbox" id="prep-4"><label for="prep-4"><strong>Copy or print her sheet</strong> (the word bank and questions at the bottom of this page).</label></li>
     </ul>
     <p class="note"><b>Heads-up about preview links.</b> When you open a pull request, Vercel posts a <em>Preview</em> link. New Vercel projects protect previews behind a Vercel login, so it will open on your laptop but not on Lizzie's device. Show it on your screen. To make previews public, go to the Vercel project's <em>Settings → Deployment Protection</em>.</p>
@@ -249,7 +250,7 @@ body { margin: 0; }
           <tr><td>Repository (repo)</td><td>The whole recipe book</td><td><code>lilelus</code></td></tr>
           <tr><td>Commit</td><td>Saving a page, with a sticky note saying what changed</td><td>Each one gets a code, like <code>344a553</code></td></tr>
           <tr><td>History</td><td>Every saved version of every page</td><td>The <em>2 commits</em> link on the repo page</td></tr>
-          <tr><td>Branch</td><td>A practice copy, to try a new recipe without spoiling the real book</td><td><span class="branch-tag">lizzie-new-heading</span> (we'll make it)</td></tr>
+          <tr><td>Branch</td><td>A practice copy, to try a new recipe without spoiling the real book</td><td><span class="branch-tag">lizzie-photo-and-words</span> (we'll make it)</td></tr>
           <tr><td>Pull request</td><td>“Mum, can my new recipe go in the real book?”</td><td>Someone checks the change before it's accepted</td></tr>
           <tr><td>Merge</td><td>Mum says yes, and it's copied into the real book</td><td>The change joins <code>main</code></td></tr>
         </tbody>
@@ -259,22 +260,26 @@ body { margin: 0; }
     <p style="margin-top:16px">Then add the last piece: <strong>Vercel watches the real book.</strong> Whenever <code>main</code> changes, Vercel bakes the website again, and the live site updates by itself.</p>
 
     <div class="graph" aria-label="Diagram of today's plan: two existing commits on main, a practice branch with one new commit, then a merge back into main">
-      <svg viewBox="0 0 680 150" width="100%" role="img" aria-label="Two commits on main, a practice branch with one commit, then a merge back into main" style="display:block;max-width:680px;margin:0 auto">
-  <line x1="40" y1="105" x2="640" y2="105" style="stroke:var(--main)" stroke-width="5" stroke-linecap="round"/>
-  <path d="M260 105 C 300 105, 300 45, 350 45 L 430 45 C 480 45, 480 105, 520 105" fill="none" style="stroke:var(--branch)" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="80" cy="105" r="11" style="fill:var(--surface);stroke:var(--main)" stroke-width="5"/>
-  <circle cx="220" cy="105" r="11" style="fill:var(--surface);stroke:var(--main)" stroke-width="5"/>
-  <circle cx="390" cy="45" r="11" style="fill:var(--surface);stroke:var(--branch)" stroke-width="5"/>
-  <circle cx="560" cy="105" r="13" style="fill:var(--main);stroke:var(--main)" stroke-width="5"/>
-  <g style="font:600 13px var(--mono);fill:var(--fg)">
-    <text x="80" y="138" text-anchor="middle">344a553</text>
-    <text x="220" y="138" text-anchor="middle">f2f773b</text>
-    <text x="390" y="22" text-anchor="middle">new heading</text>
-    <text x="560" y="138" text-anchor="middle">site updates</text>
+      <svg viewBox="0 0 680 150" width="100%" role="img" aria-label="Two saves on main, a practice branch with three saves (words, photo, show photo), then a merge back into main that goes live on mum's site" style="display:block;max-width:680px;margin:0 auto">
+  <line x1="40" y1="105" x2="640" y2="105" style="stroke:var(--main, #1f7a4d)" stroke-width="5" stroke-linecap="round"/>
+  <path d="M230 105 C 270 105, 270 45, 320 45 L 480 45 C 530 45, 530 105, 570 105" fill="none" style="stroke:var(--branch, #7a4fd0)" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="70" cy="105" r="11" style="fill:var(--surface, #fff);stroke:var(--main, #1f7a4d)" stroke-width="5"/>
+  <circle cx="190" cy="105" r="11" style="fill:var(--surface, #fff);stroke:var(--main, #1f7a4d)" stroke-width="5"/>
+  <circle cx="340" cy="45" r="10" style="fill:var(--surface, #fff);stroke:var(--branch, #7a4fd0)" stroke-width="5"/>
+  <circle cx="400" cy="45" r="10" style="fill:var(--surface, #fff);stroke:var(--branch, #7a4fd0)" stroke-width="5"/>
+  <circle cx="460" cy="45" r="10" style="fill:var(--surface, #fff);stroke:var(--branch, #7a4fd0)" stroke-width="5"/>
+  <circle cx="590" cy="105" r="13" style="fill:var(--main, #1f7a4d);stroke:var(--main, #1f7a4d)" stroke-width="5"/>
+  <g style="font:600 12px 'JetBrains Mono', Menlo, monospace;fill:var(--fg, #1d2420)">
+    <text x="70" y="138" text-anchor="middle">344a553</text>
+    <text x="190" y="138" text-anchor="middle">5a76741</text>
+    <text x="340" y="22" text-anchor="middle">words</text>
+    <text x="400" y="22" text-anchor="middle">photo</text>
+    <text x="460" y="22" text-anchor="middle">show it</text>
+    <text x="590" y="138" text-anchor="middle">live on mum's site</text>
   </g>
-  <g style="font:700 11px var(--body);letter-spacing:.06em">
-    <text x="40" y="85" style="fill:var(--muted)">MAIN</text>
-    <text x="440" y="72" style="fill:var(--branch)">LIZZIE-NEW-HEADING</text>
+  <g style="font:700 11px 'Atkinson Hyperlegible', sans-serif;letter-spacing:.06em">
+    <text x="40" y="85" style="fill:var(--muted, #5b665f)">MAIN</text>
+    <text x="330" y="78" style="fill:var(--branch, #7a4fd0)">LIZZIE-PHOTO-AND-WORDS</text>
   </g>
 </svg>
     </div>
@@ -289,13 +294,13 @@ body { margin: 0; }
   <section id="build">
     <div class="section-head"><h2>The build</h2><span class="time">45 min</span></div>
     <p>Each step is one dot in the history. <strong>Before every click, Lizzie predicts what will happen.</strong> She does the clicking on her own laptop, signed in as herself. You guide and ask the questions.</p>
-    <p class="note"><b>Practise in the demo folder only.</b> Mum's real site is in the same repo, at the main address. Today's change goes in <code>demo/index.html</code>, so the practice bakery changes and mum's site doesn't. Your approval rule on <code>main</code> means nothing reaches either site until you approve the pull request.</p>
+    <p class="note"><b>Today she changes mum's real landing page.</b> Two changes, both on one practice branch: some <strong>words</strong> (the copy) and one <strong>real photo</strong>. Nothing reaches mum's live site until you approve her pull request, so mistakes are safe to make.</p>
 
     <ol class="history">
       <li class="commit" id="step-1">
         <div class="card">
           <div class="card-top">
-            <div><span class="mono">step 1 · 8 min</span><h3>Tour the recipe book</h3></div>
+            <div><span class="mono">step 1 · 6 min</span><h3>Tour the recipe book</h3></div>
             <label class="done"><input type="checkbox" id="done-1"> Done</label>
           </div>
           <div class="roles">
@@ -303,115 +308,127 @@ body { margin: 0; }
               <ol><li>Open the repo.</li><li>Scroll slowly to the README at the bottom.</li></ol>
             </div>
             <div><span class="label">She checks</span>
-              <ul><li>Opens the <code>demo</code> folder and finds <code>index.html</code>, <code>style.css</code> and <code>script.js</code>: the same three layers from the practice bakery.</li><li>Notices mum's real site is in the main folder.</li><li>Reads the README out loud.</li></ul>
+              <ul><li>Finds mum's site in the main folder: <code>index.html</code>, <code>styles.css</code>, <code>script.js</code>.</li><li>Opens the <code>images</code> folder and reads its README: the rules for photos.</li></ul>
             </div>
           </div>
-          <p class="predict"><span class="label">Predict</span>“What do you think the README is for?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-2">Show answer</button><span class="answer" id="ans-2" hidden>(It's the front page of the book: it tells visitors what the project is.)</span></p>
+          <p class="predict"><span class="label">Predict</span>“Which of the three files holds the words on the page: HTML, CSS or JavaScript?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-2">Show answer</button><span class="answer" id="ans-2" hidden>(HTML, so <code>index.html</code>.)</span></p>
         </div>
       </li>
 
       <li class="commit" id="step-2">
         <div class="card">
           <div class="card-top">
-            <div><span class="mono">step 2 · 7 min</span><h3>Time travel through the history</h3></div>
+            <div><span class="mono">step 2 · 5 min</span><h3>Time travel through the history</h3></div>
             <label class="done"><input type="checkbox" id="done-2"> Done</label>
           </div>
           <div class="roles">
             <div><span class="label">She clicks</span>
-              <ol><li>Click <em>2 commits</em> (top right of the file list).</li><li>Open <code>f2f773b</code>, then <code>344a553</code>.</li></ol>
+              <ol><li>Click the commits link (top right of the file list).</li><li>Open the commit called <em>Move mum's site into this repo</em>.</li></ol>
             </div>
             <div><span class="label">She checks</span>
-              <ul><li>Reads each sticky note (the commit message).</li><li>Explains the colours: <strong>green = added</strong>, <strong>red = removed</strong>.</li></ul>
+              <ul><li>Reads the sticky note (the commit message).</li><li>Explains the colours: <strong>green = added</strong>, <strong>red = removed</strong>.</li></ul>
             </div>
           </div>
-          <p class="predict"><span class="label">Predict</span>“If we change just one word on one line, how many red and green lines will we see?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-3">Show answer</button><span class="answer" id="ans-3" hidden>(One red: the old line. One green: the new line.)</span></p>
+          <p class="predict"><span class="label">Predict</span>“If we change one sentence, how many red and green lines will we see?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-3">Show answer</button><span class="answer" id="ans-3" hidden>(One red: the old sentence. One green: the new one.)</span></p>
         </div>
       </li>
 
       <li class="commit on-branch" id="step-3">
         <div class="card">
           <div class="card-top">
-            <div><span class="mono">step 3 · 12 min</span><h3>Make a practice branch and change the heading</h3></div>
+            <div><span class="mono">step 3 · 8 min</span><h3>Change the words (copy) on a practice branch</h3></div>
             <label class="done"><input type="checkbox" id="done-3"> Done</label>
           </div>
           <div class="roles">
             <div><span class="label">She clicks</span>
               <ol>
-                <li>Open <code>demo/index.html</code> and click the pencil (Edit).</li>
-                <li>Find <code>&lt;h1&gt;Today's cakes&lt;/h1&gt;</code> and type her new heading.</li>
-                <li>Click <em>Commit changes…</em></li>
-                <li>Choose <em>Create a new branch</em>, name it <span class="branch-tag">lizzie-new-heading</span>, then <em>Propose changes</em>.</li>
+                <li>Open <code>index.html</code> in the main folder and click the pencil (Edit).</li>
+                <li>Find the words she's changing. The big headline is on the line starting <code>&lt;h1&gt;</code>; the line under it starting <code>&lt;p class="lede"&gt;</code> is the welcome sentence.</li>
+                <li>Change only the words between the tags. Leave the <code>&lt;</code> <code>&gt;</code> parts alone.</li>
+                <li>Click <em>Commit changes…</em>, choose <em>Create a new branch</em>, name it <span class="branch-tag">lizzie-photo-and-words</span>, then <em>Propose changes</em>.</li>
               </ol>
             </div>
             <div><span class="label">She checks</span>
               <ul>
-                <li>Decides the new heading.</li>
-                <li>Writes the commit message: what changed, in a few words, like <em>“Change heading to Lizzie's favourite cakes”</em>.</li>
+                <li>Uses the words she and mum agreed (from the client interview), like a new headline or a better description of a cake.</li>
+                <li>Writes the sticky note: <em>“Change the headline to …”</em></li>
               </ul>
             </div>
           </div>
-          <p class="predict"><span class="label">Predict</span>“Will the live site change now?” Then refresh the live site to check. <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-4">Show answer</button><span class="answer" id="ans-4" hidden>(No. The change is only on the practice branch.)</span></p>
+          <p class="predict"><span class="label">Predict</span>“Has mum's live site changed yet?” Then refresh <code>lilelus.vercel.app</code> to check. <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-4">Show answer</button><span class="answer" id="ans-4" hidden>(No. It's only on the practice branch.)</span></p>
         </div>
       </li>
 
       <li class="commit on-branch" id="step-4">
         <div class="card">
           <div class="card-top">
-            <div><span class="mono">step 4 · 8 min</span><h3>Open a pull request and check the change</h3></div>
+            <div><span class="mono">step 4 · 12 min</span><h3>Add a real photo</h3></div>
             <label class="done"><input type="checkbox" id="done-4"> Done</label>
           </div>
           <div class="roles">
             <div><span class="label">She clicks</span>
               <ol>
-                <li>GitHub shows the pull request form. Click <em>Create pull request</em>.</li>
-                <li>Open the <em>Files changed</em> tab.</li>
-                <li>Wait about a minute for the Vercel bot comment. <em>You</em> open its <em>Preview</em> link on your laptop and show her.</li>
+                <li>Switch to her branch: the branch menu (it says <code>main</code>) → <span class="branch-tag">lizzie-photo-and-words</span>.</li>
+                <li>Open the <code>images</code> folder → <em>Add file → Upload files</em> → drag in the photo (for example <code>birthday-cake.jpg</code>). Commit straight to her branch.</li>
+                <li>Back in <code>index.html</code>, find the <em>Birthday &amp; celebration</em> card. Replace its drawing line, the one starting <code>&lt;svg class="ill"</code>, with:<br><code>&lt;img src="images/birthday-cake.jpg" alt="…"&gt;</code></li>
+                <li>Commit to the same branch.</li>
               </ol>
             </div>
             <div><span class="label">She checks</span>
               <ul>
-                <li>Checks the red and green lines match her prediction from step 2.</li>
-                <li>Looks at the preview and gives the verdict: “Is this what I wanted?”</li>
+                <li>Picks a photo mum agreed to share: cake only, no faces, under 1 MB.</li>
+                <li>Writes the <code>alt</code> words: what's in the photo, for people who can't see it.</li>
+                <li>Makes sure the file name in <code>src</code> matches the uploaded file exactly.</li>
               </ul>
             </div>
           </div>
-          <p class="predict"><span class="label">Predict</span>“Why would a real team check a change before it goes in the real book?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-5">Show answer</button><span class="answer" id="ans-5" hidden>(To catch mistakes before customers see them.)</span></p>
+          <p class="predict"><span class="label">Predict</span>“What happens if the file name in <code>src</code> has a typo?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-5">Show answer</button><span class="answer" id="ans-5" hidden>(The photo won't show. You'll see a broken image or just the alt words.)</span></p>
         </div>
       </li>
 
-      <li class="commit" id="step-5">
+      <li class="commit on-branch" id="step-5">
         <div class="card">
           <div class="card-top">
-            <div><span class="mono">step 5 · 5 min</span><h3>Merge it, and watch the live site change</h3></div>
+            <div><span class="mono">step 5 · 8 min</span><h3>Open a pull request and get it checked</h3></div>
             <label class="done"><input type="checkbox" id="done-5"> Done</label>
           </div>
           <div class="roles">
             <div><span class="label">She clicks</span>
-              <ol><li><em>You</em> approve the pull request (<em>Files changed → Review changes → Approve</em>). Then she clicks <em>Merge pull request</em> and <em>Confirm merge</em>.</li><li><em>You</em> show the new deployment appearing in your Vercel dashboard.</li></ol>
+              <ol>
+                <li>Click <em>Compare &amp; pull request</em>, give it a title like <em>New headline and a real birthday cake photo</em>, then <em>Create pull request</em>.</li>
+                <li>Open the <em>Files changed</em> tab.</li>
+                <li>Wait about a minute for the Vercel bot. <em>You</em> open its <em>Preview</em> link on your laptop and show her.</li>
+              </ol>
             </div>
             <div><span class="label">She checks</span>
-              <ul><li>Refreshes the practice bakery (<code>/demo/</code>) every 30 seconds or so until her heading appears.</li></ul>
+              <ul>
+                <li>Finds all three changes: the words (red and green lines), the new photo file, and the swapped <code>&lt;img&gt;</code> line.</li>
+                <li>Looks at the preview: does the photo fit the card, and do the words read well?</li>
+              </ul>
             </div>
           </div>
-          <p class="predict"><span class="label">Predict</span>“How long until the live site changes: one second, one minute, or one hour?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-6">Show answer</button><span class="answer" id="ans-6" hidden>(Usually under a minute.)</span></p>
+          <p class="predict"><span class="label">Predict</span>“Why does this pull request have three commits, not one?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-6">Show answer</button><span class="answer" id="ans-6" hidden>(One for the words, one for uploading the photo, one for showing it. Each save is its own sticky note.)</span></p>
         </div>
       </li>
 
       <li class="commit" id="step-6">
         <div class="card">
           <div class="card-top">
-            <div><span class="mono">step 6 · 5 min · if there's time</span><h3>Undo it (nothing is ever lost)</h3></div>
+            <div><span class="mono">step 6 · 6 min</span><h3>Approve, merge, and see it on mum's site</h3></div>
             <label class="done"><input type="checkbox" id="done-6"> Done</label>
           </div>
           <div class="roles">
             <div><span class="label">She clicks</span>
-              <ol><li>On the merged pull request, click <em>Revert</em>.</li><li>Create the new pull request and merge it.</li></ol>
+              <ol>
+                <li><em>You</em> approve: <em>Files changed → Review changes → Approve</em>.</li>
+                <li>She clicks <em>Merge pull request</em>, then <em>Confirm merge</em>.</li>
+              </ol>
             </div>
             <div><span class="label">She checks</span>
-              <ul><li>Watches the live site go back to <em>Today's cakes</em>.</li><li>Opens the history and finds that even the undo is a commit.</li></ul>
+              <ul><li>Refreshes <code>lilelus.vercel.app</code> every 30 seconds until her words and photo appear.</li><li>Shows mum!</li></ul>
             </div>
           </div>
-          <p class="predict"><span class="label">Predict</span>“After we undo it, is her heading gone forever?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-7">Show answer</button><span class="answer" id="ans-7" hidden>(No. It's still in the history and can be brought back.)</span></p>
+          <p class="predict"><span class="label">Predict</span>“Mum's customers will see this. Who had to say yes before it went live?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-7">Show answer</button><span class="answer" id="ans-7" hidden>(You, the head baker, by approving the pull request.)</span></p>
         </div>
       </li>
     </ol>
@@ -429,6 +446,9 @@ body { margin: 0; }
       </details>
       <details><summary>The pencil (Edit) button is grey</summary>
         <p>She's signed out, or signed in to a different account. She should be signed in as <code>Lizzie-bizi</code>.</p>
+      </details>
+      <details><summary>The photo doesn't show (broken image)</summary>
+        <p>Check the file name in <code>src="images/…"</code> matches the uploaded file exactly, including capitals and the ending (<code>.jpg</code> vs <code>.jpeg</code> vs <code>.png</code>). Phones often save as <code>.HEIC</code>, which browsers can't show: export it as JPG first. Fix it with another commit on the same branch.</p>
       </details>
       <details><summary>She typed the heading but the page looks broken</summary>
         <p>A tag was probably deleted by accident, like the <code>&lt;/h1&gt;</code>. Look at the red and green lines in <em>Files changed</em>: the mistake will be there. Fix it with another commit on the same branch. It's great debugging practice.</p>
@@ -455,7 +475,7 @@ body { margin: 0; }
     <ul class="checks" data-group="explain">
       <li><input type="checkbox" id="exp-1"><label for="exp-1">Show the diagram from the start again, and have Lizzie walk through it using the recipe-book words.</label></li>
       <li><input type="checkbox" id="exp-2"><label for="exp-2">She answers the questions on her sheet (below), out loud or written.</label></li>
-      <li><input type="checkbox" id="exp-2b"><label for="exp-2b">Open <em>Your missions</em> on her GitHub page together. The first two should now say <strong>Done ✓</strong>. Her name is in the diary too.</label></li>
+      <li><input type="checkbox" id="exp-2b"><label for="exp-2b">Open <em>Your missions</em> on her GitHub page together. <em>Ask the head baker</em>, <em>Change the words</em>, <em>Add a real photo</em> and <em>Into the real book</em> should now say <strong>Done ✓</strong>. Her name is in the diary too.</label></li>
       <li><input type="checkbox" id="exp-3"><label for="exp-3"><strong>Prompt journal:</strong> she writes one change she'd like to make to the demo site next, as a prompt she'd give Claude. You don't run it yet.</label></li>
     </ul>
   </section>
@@ -476,6 +496,9 @@ body { margin: 0; }
         <div><dt>pull request</dt><dd>Asking “can my change go into main?”</dd></div>
         <div><dt>merge</dt><dd>Saying yes: the change joins main.</dd></div>
         <div><dt>revert</dt><dd>Undoing a change, with a new commit.</dd></div>
+        <div><dt>copy</dt><dd>The words on a website.</dd></div>
+        <div><dt>upload</dt><dd>Adding a file, like a photo, to the recipe book.</dd></div>
+        <div><dt>alt text</dt><dd>Words that describe a photo for people who can't see it.</dd></div>
       </dl>
 
       <h3 style="margin-top:26px">Questions</h3>
@@ -483,7 +506,8 @@ body { margin: 0; }
         <li>In your own words, what is a commit? <span class="blank"></span></li>
         <li>Why did we make a branch instead of changing <code>main</code> straight away? <span class="blank"></span></li>
         <li>What happened to the live site when we merged, and why? <span class="blank"></span></li>
-        <li>Write a good commit message for: “I changed the button colour to green.” <span class="blank"></span></li>
+        <li>Write a good commit message for: “I added a photo of the wedding cake.” <span class="blank"></span></li>
+        <li>What should the <code>alt</code> words say for your photo, and who are they for? <span class="blank"></span></li>
         <li>Why should you never put a password or secret code in a public repo? <span class="blank"></span></li>
       </ol>
     </div>

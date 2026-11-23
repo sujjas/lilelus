@@ -129,7 +129,7 @@ function el(tag, cls, text) {
 
 function tag(cls, text) { return el("span", "tag " + cls, text); }
 
-function renderMissions(commits, pulls) {
+function renderMissions(commits, pulls, filesByPr) {
   const who = document.getElementById("who");
   if (!me) {
     who.textContent = "Missions will start ticking once your teacher adds your GitHub username to this page.";
@@ -146,6 +146,9 @@ function renderMissions(commits, pulls) {
     claude: myCommits.some((c) => CLAUDE.test(c.commit.message)) ||
             mine.some((p) => p.merged_at && CLAUDE.test(p.body || "")),
     revert: mine.some((p) => /^revert/i.test(p.title)),
+    // Mum's landing page is index.html in the main folder
+    words: mine.some((p) => p.merged_at && (filesByPr[p.number] || []).some((f) => f.filename === "index.html" && f.status === "modified")),
+    photo: mine.some((p) => p.merged_at && (filesByPr[p.number] || []).some((f) => /^images\/.+\.(jpe?g|png|webp|gif)$/i.test(f.filename) && f.status === "added")),
     five: myCommits.length >= 5,
   };
   document.getElementById("five-count").textContent = `(${Math.min(myCommits.length, 5)} of 5)`;
@@ -225,7 +228,13 @@ async function loadFromGitHub() {
       getJSON("commits?sha=main&per_page=100"),
       getJSON("pulls?state=all&per_page=50"),
     ]);
-    renderMissions(commits, pulls);
+    // Which files did each of Lizzie's merged pull requests change? (for the words + photo missions)
+    const filesByPr = {};
+    const myMerged = pulls.filter((p) => isMe(p.user && p.user.login) && p.merged_at).slice(0, 10);
+    await Promise.all(myMerged.map(async (p) => {
+      try { filesByPr[p.number] = await getJSON(`pulls/${p.number}/files?per_page=100`); } catch (e) { filesByPr[p.number] = []; }
+    }));
+    renderMissions(commits, pulls, filesByPr);
     renderDiary(commits, pulls);
   } catch (err) {
     const msg = err.message === "busy"
