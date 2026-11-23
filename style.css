@@ -88,7 +88,12 @@ nav a:hover {
 /* 4. The big welcome area */
 .hero {
   text-align: center;
-  padding: 60px 24px 40px;
+  padding: 110px 24px 90px;
+  color: white;
+  /* The hero image: a dark layer on top of the cake photo so the words are easy to read */
+  background:
+    linear-gradient(rgba(30, 15, 10, 0.55), rgba(30, 15, 10, 0.55)),
+    url("images/hero-cake.jpg") center / cover no-repeat;
 }
 
 .hero h1 {
