@@ -1,0 +1,168 @@
+/* Control panel ("lab") styles.
+   This file is a tool for the lesson, not part of the bakery site,
+   so it stays on even when the site's CSS is switched off. */
+
+.lab {
+  --html: #e8642c;
+  --css: #2f6fe0;
+  --js: #e3b505;
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1000;
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  background: #1d1a22;
+  color: #f4f1ec;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.55);
+  font: 14px/1.4 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  overflow: hidden;
+}
+
+.lab * { box-sizing: border-box; }
+
+.lab-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px 10px 16px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #bdb6c7;
+}
+
+.lab-collapse {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 8px;
+  background: #2c2833;
+  color: #f4f1ec;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+.lab-collapse:hover { background: #3a3542; }
+
+.lab-body { padding: 0 12px 14px; }
+.lab.collapsed .lab-body { display: none; }
+
+.lab-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 10px;
+  margin-bottom: 6px;
+  border-radius: 12px;
+  background: #27232d;
+  transition: opacity 0.2s;
+}
+.lab-row.off { opacity: 0.55; }
+
+.lab-label { display: flex; gap: 10px; align-items: flex-start; }
+.lab-label b { font-size: 15px; }
+.lab-label small { color: #a9a1b4; font-size: 12px; margin-left: 4px; }
+.lab-label p { margin: 2px 0 0; color: #cfc8d8; font-size: 12.5px; }
+
+.lab-dot {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  margin-top: 4px;
+  border-radius: 50%;
+}
+.lab-html .lab-dot { background: var(--html); }
+.lab-css  .lab-dot { background: var(--css); }
+.lab-js   .lab-dot { background: var(--js); }
+
+/* On / off switches */
+.lab-switch {
+  flex: none;
+  position: relative;
+  width: 48px;
+  height: 28px;
+  border: 0;
+  border-radius: 999px;
+  background: #4a4552;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.lab-switch span {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+}
+.lab-switch[aria-checked="true"] span { transform: translateX(20px); }
+.lab-css .lab-switch[aria-checked="true"] { background: var(--css); }
+.lab-js  .lab-switch[aria-checked="true"] { background: var(--js); }
+
+.lab-pill {
+  flex: none;
+  border: 1.5px solid var(--html);
+  background: transparent;
+  color: #f4f1ec;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.lab-pill[aria-pressed="true"] { background: var(--html); color: #1d1a22; }
+
+.lab-switch:focus-visible, .lab-pill:focus-visible, .lab-collapse:focus-visible, .lab-links a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.lab-tip {
+  margin: 10px 4px 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #34303b;
+  color: #fff;
+  font-size: 13.5px;
+}
+
+.lab-links { display: flex; justify-content: space-between; gap: 8px; padding: 0 4px; flex-wrap: wrap; }
+.lab-links a { color: #f6d27a; font-weight: 600; text-decoration: none; font-size: 13px; }
+.lab-links a:hover { text-decoration: underline; }
+
+/* Phones: keep the panel short so the site stays visible */
+@media (max-width: 560px) {
+  .lab { right: 8px; left: 8px; bottom: 8px; width: auto; max-width: none; }
+  .lab-label p { display: none; }
+  .lab-row { padding: 8px 10px; margin-bottom: 4px; }
+  .lab-tip { margin: 8px 2px; font-size: 13px; }
+}
+
+
+/* ===== X-ray mode: show every HTML tag ===== */
+.xray #site [data-x] {
+  outline: 1.5px dashed rgba(232, 100, 44, 0.7);
+  outline-offset: -1px;
+  position: relative;
+}
+.xray #site [data-x]::before {
+  content: "<" attr(data-x) ">";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  padding: 1px 5px;
+  border-radius: 0 0 6px 0;
+  background: #e8642c;
+  color: #fff;
+  font: 600 11px/1.4 ui-monospace, "SF Mono", Menlo, monospace;
+  letter-spacing: 0;
+  text-transform: none;
+  pointer-events: none;
+  white-space: nowrap;
+}

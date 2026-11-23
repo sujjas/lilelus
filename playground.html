@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Code Playground · HTML, CSS & JS demo</title>
+  <link rel="stylesheet" href="lab/playground.css" />
+</head>
+<body>
+  <header class="pg-top">
+    <a href="index.html" class="pg-back">← Back to the bakery</a>
+    <h1>Code playground</h1>
+    <p>Change the code, <b>guess what will happen</b>, then press <b>Run</b> to check.</p>
+  </header>
+
+  <main class="pg-main">
+    <section class="pg-editor" aria-label="Code editor">
+      <div class="pg-tabs" role="tablist">
+        <button role="tab" class="pg-tab tab-html" aria-selected="true" aria-controls="code-html" id="tab-html">HTML <small>the cake</small></button>
+        <button role="tab" class="pg-tab tab-css" aria-selected="false" aria-controls="code-css" id="tab-css">CSS <small>the icing</small></button>
+        <button role="tab" class="pg-tab tab-js" aria-selected="false" aria-controls="code-js" id="tab-js">JS <small>the shopkeeper</small></button>
+      </div>
+
+      <textarea id="code-html" class="pg-code" role="tabpanel" aria-labelledby="tab-html" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+      <textarea id="code-css" class="pg-code" role="tabpanel" aria-labelledby="tab-css" spellcheck="false" autocapitalize="off" autocomplete="off" hidden></textarea>
+      <textarea id="code-js" class="pg-code" role="tabpanel" aria-labelledby="tab-js" spellcheck="false" autocapitalize="off" autocomplete="off" hidden></textarea>
+
+      <div class="pg-actions">
+        <button id="run" class="pg-run">▶ Run <kbd>Ctrl/⌘ + Enter</kbd></button>
+        <button id="reset" class="pg-reset">Start over</button>
+      </div>
+
+      <fieldset class="pg-layers">
+        <legend>Run with:</legend>
+        <label class="l-html"><input type="checkbox" checked disabled /> HTML</label>
+        <label class="l-css"><input type="checkbox" id="use-css" checked /> CSS</label>
+        <label class="l-js"><input type="checkbox" id="use-js" checked /> JavaScript</label>
+      </fieldset>
+    </section>
+
+    <section class="pg-preview" aria-label="Result">
+      <div class="pg-preview-head">
+        <span>Result</span>
+        <span class="pg-dirty" id="dirty" hidden>Code changed: press Run</span>
+      </div>
+      <iframe id="preview" title="Result of your code" sandbox="allow-scripts allow-modals"></iframe>
+      <p class="pg-error" id="error" role="alert" hidden></p>
+    </section>
+
+    <section class="pg-challenges" aria-label="Challenges">
+      <h2>Challenges</h2>
+      <p class="pg-hint">Tick each one when you've done it. Remember: <b>predict first, then Run.</b></p>
+      <ol id="challenges"></ol>
+    </section>
+  </main>
+
+  <script src="lab/playground.js"></script>
+</body>
+</html>

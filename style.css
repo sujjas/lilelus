@@ -1,0 +1,228 @@
+/* ==============================================
+   🎨 style.css: the "icing" on the cake
+   ----------------------------------------------
+   CSS tells the browser how things should LOOK.
+   Each rule has two parts:
+     selector  { property: value; }
+     (WHO)       (WHAT to change)
+   ============================================== */
+
+
+/* 1. Colours we reuse everywhere.
+   Change one here and it changes across the whole site! */
+#site {
+  --background: #fbf5ee;   /* cream */
+  --text: #3a2219;         /* dark chocolate */
+  --main-colour: #b8406a;  /* berry pink */
+  --card: #ffffff;         /* white */
+  --soft: #f6d27a;         /* butter yellow */
+}
+
+/* The second colour theme. JavaScript adds the class "mint" to switch to it. */
+#site.mint {
+  --background: #eef5f0;
+  --text: #1f3a2c;
+  --main-colour: #3f8a66;
+  --card: #ffffff;
+  --soft: #cfe6d8;
+}
+
+
+/* 2. The whole page */
+body {
+  margin: 0;
+}
+
+#site {
+  background: var(--background);
+  color: var(--text);
+  font-family: "DM Sans", sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: background 0.4s, color 0.4s;   /* smooth colour change */
+}
+
+h1, h2 {
+  font-family: "Fraunces", serif;
+  line-height: 1.15;
+}
+
+
+/* 3. The top bar */
+.top-bar {
+  display: flex;                    /* put things side by side */
+  justify-content: space-between;   /* logo on the left, links on the right */
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 18px 24px;
+  background: var(--card);
+  border-bottom: 2px solid var(--soft);
+}
+
+.logo {
+  font-family: "Fraunces", serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;            /* remove the underline */
+}
+
+.logo span {
+  color: var(--main-colour);
+}
+
+nav a {
+  margin-left: 18px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: var(--main-colour);
+}
+
+
+/* 4. The big welcome area */
+.hero {
+  text-align: center;
+  padding: 60px 24px 40px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin: 0 0 10px;
+}
+
+.hero p {
+  font-size: 19px;
+  max-width: 480px;
+  margin: 0 auto 24px;              /* "auto" centres it */
+}
+
+
+/* 5. Buttons */
+.button {
+  background: var(--main-colour);
+  color: white;
+  border: none;
+  border-radius: 999px;             /* very round corners */
+  padding: 12px 22px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;                  /* show a pointing hand */
+  transition: transform 0.15s;
+}
+
+.button:hover {
+  transform: scale(1.05);           /* grow a little when you hover */
+}
+
+.button-light {
+  background: var(--soft);
+  color: var(--text);
+}
+
+
+/* 6. The cake cards: a grid of 3 */
+.cakes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);   /* 3 equal columns */
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px 24px;
+}
+
+.cake-card {
+  background: var(--card);
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.cake-picture {
+  font-size: 64px;
+  background: var(--soft);
+  border-radius: 50%;               /* turns a square into a circle */
+  width: 110px;
+  height: 110px;
+  line-height: 110px;
+  margin: 0 auto 12px;
+}
+
+.cake-card h2 {
+  margin: 8px 0;
+  font-size: 24px;
+}
+
+.price {
+  font-weight: 700;
+  color: var(--main-colour);
+  font-size: 18px;
+}
+
+
+/* 7. My box */
+.box {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 28px;
+  background: var(--card);
+  border-radius: 20px;
+  border: 2px dashed var(--main-colour);
+  text-align: center;
+}
+
+.box h2 {
+  margin-top: 0;
+}
+
+#box-list {
+  list-style: none;
+  padding: 0;
+}
+
+#box-list li {
+  padding: 8px;
+  border-bottom: 1px solid var(--soft);
+}
+
+/* A little "pop" when something is added (JavaScript adds the class) */
+.pop {
+  animation: pop 0.3s;
+}
+
+@keyframes pop {
+  50% { transform: scale(1.08); }
+}
+
+
+/* 8. Footer */
+.footer {
+  text-align: center;
+  padding: 30px 24px 140px;
+  font-size: 15px;
+  opacity: 0.8;
+}
+
+
+/* 9. Small screens (phones): stack the cards in one column */
+@media (max-width: 700px) {
+  .cakes {
+    grid-template-columns: 1fr;     /* just 1 column */
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  nav a {
+    margin-left: 0;
+    margin-right: 14px;
+  }
+}
