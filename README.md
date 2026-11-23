@@ -21,6 +21,7 @@ Think of a website like a cake:
    - Switch **JavaScript** off, then click **Add to box**. Nothing happens, because the shopkeeper went home.
    - Press **X-ray** to see the HTML tags hiding behind everything.
 2. Open the **Code playground** and change the code yourself. Always **guess what will happen first**, then press **Run**.
+3. Open **[How GitHub works](https://lilelus-html-css-js-demo.vercel.app/github/)** to learn GitHub in cake words, practise with a pretend recipe book, and do your missions.
 
 ## What's in this folder
 
@@ -29,6 +30,7 @@ index.html       ← the bakery page (HTML)
 style.css        ← how the bakery looks (CSS)
 script.js        ← what the bakery does (JavaScript)
 playground.html  ← the code playground page
+github/          ← the "How GitHub works" page
 lab/             ← the control panel and playground tools (you don't need to read these yet)
 ```
 

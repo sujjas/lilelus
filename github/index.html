@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How GitHub Works · Lilelus Mini Bakery</title>
+  <meta name="description" content="GitHub explained in cake words: recipe books, practice copies and the oven that bakes the website." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="github.css" />
+</head>
+<body>
+
+  <header class="top-bar">
+    <a href="../" class="logo">Lilelus <span>Mini Bakery</span></a>
+    <nav>
+      <a href="../">Bakery</a>
+      <a href="../playground.html">Playground</a>
+      <a href="#missions">My missions</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 1. The big idea -->
+    <section class="hero">
+      <p class="eyebrow">Lesson · GitHub</p>
+      <h1>GitHub is a magic recipe book</h1>
+      <p class="lede">Our website is made of recipes (the code). GitHub keeps them all in one book, and it remembers <strong>every version, ever</strong>. So you can try new things without being scared of breaking anything.</p>
+      <div class="hero-links">
+        <a class="button" href="https://github.com/sujjas/lilelus-html-css-js-demo" target="_blank" rel="noopener">Open our recipe book ↗</a>
+        <a class="button button-light" href="#try">Try it first</a>
+      </div>
+    </section>
+
+    <!-- 2. The words -->
+    <section class="section" id="words">
+      <div class="section-head">
+        <h2>The words, in cake language</h2>
+        <p>GitHub has lots of strange words. Here's what each one means in our bakery.</p>
+      </div>
+
+      <div class="words">
+        <article class="word">
+          <div class="word-icon">📖</div>
+          <div>
+            <p class="term">repository <small>(repo)</small></p>
+            <h3>The recipe book</h3>
+            <p>The folder with all our website's files in it.</p>
+          </div>
+        </article>
+        <article class="word">
+          <div class="word-icon">📚</div>
+          <div>
+            <p class="term">main</p>
+            <h3>The real recipe book</h3>
+            <p>The one the shop bakes from. It's what customers see.</p>
+          </div>
+        </article>
+        <article class="word">
+          <div class="word-icon">📝</div>
+          <div>
+            <p class="term">commit</p>
+            <h3>Saving a recipe, with a sticky note</h3>
+            <p>A saved change, with a short note saying what you changed.</p>
+          </div>
+        </article>
+        <article class="word">
+          <div class="word-icon">🔍</div>
+          <div>
+            <p class="term">diff</p>
+            <h3>Spot the difference</h3>
+            <p><span class="add">Green lines</span> were added. <span class="del">Red lines</span> were taken away.</p>
+          </div>
+        </article>
+        <article class="word word-branch">
+          <div class="word-icon">📋</div>
+          <div>
+            <p class="term">branch</p>
+            <h3>A practice copy</h3>
+            <p>Try out a new idea without touching the real recipe book.</p>
+          </div>
+        </article>
+        <article class="word word-branch">
+          <div class="word-icon">🙋🏾‍♀️</div>
+          <div>
+            <p class="term">pull request</p>
+            <h3>Asking the head baker</h3>
+            <p>“I tried a new recipe. Can it go in the real book?” Someone checks it first.</p>
+          </div>
+        </article>
+        <article class="word">
+          <div class="word-icon">✅</div>
+          <div>
+            <p class="term">merge</p>
+            <h3>“Yes!” It goes in the real book</h3>
+            <p>Your change joins <code>main</code>.</p>
+          </div>
+        </article>
+        <article class="word">
+          <div class="word-icon">🔥</div>
+          <div>
+            <p class="term">Vercel</p>
+            <h3>The oven</h3>
+            <p>Every time the real book changes, the oven bakes the website again, by itself.</p>
+          </div>
+        </article>
+        <article class="word">
+          <div class="word-icon">🚚</div>
+          <div>
+            <p class="term">push</p>
+            <h3>Delivering to the shop</h3>
+            <p>Sending changes you saved on your computer up to GitHub.</p>
+          </div>
+        </article>
+        <article class="word">
+          <div class="word-icon">↩️</div>
+          <div>
+            <p class="term">revert</p>
+            <h3>Undo</h3>
+            <p>Take a change back out. Even the undo gets saved, so nothing is lost.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 3. Pretend practice -->
+    <section class="section section-tint" id="try">
+      <div class="section-head">
+        <h2>Try it: bake a change</h2>
+        <p>This is pretend, so nothing here can break. Press the buttons in order. <strong>Before each one, guess what will happen.</strong></p>
+      </div>
+
+      <div class="sim">
+        <ol class="sim-steps" id="sim-steps">
+          <li><button data-step="1">Make a practice copy <span class="term">branch</span></button></li>
+          <li><button data-step="2" disabled>Change the recipe</button></li>
+          <li><button data-step="3" disabled>Save it with a note <span class="term">commit</span></button></li>
+          <li><button data-step="4" disabled>Ask the head baker <span class="term">pull request</span></button></li>
+          <li><button data-step="5" disabled>Put it in the real book <span class="term">merge</span></button></li>
+        </ol>
+
+        <div class="sim-stage">
+          <div class="sim-panel">
+            <p class="panel-label">The recipe book</p>
+            <svg id="sim-graph" viewBox="0 0 420 130" role="img" aria-label="A picture of the recipe book's history">
+              <line x1="20" y1="95" x2="400" y2="95" class="g-main" />
+              <path id="g-branch" d="M140 95 C 175 95, 175 40, 215 40 L 270 40" class="g-branch" />
+              <path id="g-merge" d="M270 40 C 310 40, 310 95, 345 95" class="g-branch" />
+              <circle cx="50" cy="95" r="9" class="g-dot" />
+              <circle cx="120" cy="95" r="9" class="g-dot" />
+              <circle id="g-commit" cx="250" cy="40" r="9" class="g-dot g-dot-branch" />
+              <circle id="g-merged" cx="345" cy="95" r="11" class="g-dot g-dot-merged" />
+              <text x="20" y="122" class="g-label">main (the real book)</text>
+              <text id="g-branch-label" x="200" y="20" class="g-label g-label-branch">practice copy</text>
+            </svg>
+            <div class="sim-diff" id="sim-diff" hidden>
+              <p class="panel-label">Spot the difference</p>
+              <pre><span class="del">- &lt;h1&gt;Today's cakes&lt;/h1&gt;</span>
+<span class="add">+ &lt;h1&gt;Lizzie's favourite cakes&lt;/h1&gt;</span></pre>
+            </div>
+            <div class="sim-pr" id="sim-pr" hidden>
+              <span class="pill" id="sim-pr-pill">Waiting for a check</span>
+              <b>Pull request #1:</b> Change the heading
+            </div>
+          </div>
+
+          <div class="sim-panel">
+            <p class="panel-label">The live website <span class="oven" id="sim-oven" hidden>🔥 Baking…</span></p>
+            <div class="mini-site">
+              <div class="mini-bar"><i></i><i></i><i></i></div>
+              <p class="mini-title" id="sim-site-title">Today's cakes</p>
+              <p class="mini-text">Freshly baked this morning.</p>
+            </div>
+          </div>
+
+          <p class="sim-say" id="sim-say" aria-live="polite">Guess first: if we make a practice copy, will the website change?</p>
+          <button class="reset" id="sim-reset">Start again</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Claude -->
+    <section class="section" id="claude">
+      <div class="section-head">
+        <h2>How Claude helps</h2>
+        <p>Claude is your <strong>helper baker</strong>. You're the <strong>head baker</strong>, so you always decide.</p>
+      </div>
+
+      <ol class="flow">
+        <li><span class="flow-num">1</span><h3>You ask</h3><p>Tell Claude exactly what you want. “Make the Add to box button green.”</p></li>
+        <li><span class="flow-num">2</span><h3>Claude writes it</h3><p>Claude changes the recipe for you, and explains what it did.</p></li>
+        <li><span class="flow-num">3</span><h3>You check</h3><p>Guess what will change, then look at the <span class="add">green</span> and <span class="del">red</span> lines. Does it match?</p></li>
+        <li><span class="flow-num">4</span><h3>You decide</h3><p>Happy? Save it and make a pull request. Not happy? Say no, or ask Claude to try again.</p></li>
+      </ol>
+
+      <div class="claude-note">
+        <p>When Claude helps with a change, the sticky note says <code>Co-Authored-By: Claude</code>. That's how everyone can see who helped, a bit like signing a birthday card together.</p>
+      </div>
+
+      <div class="rules">
+        <h3>Head baker rules</h3>
+        <ul>
+          <li><b>Read before you say yes.</b> Always look at what changed.</li>
+          <li><b>One small change at a time.</b> Small cakes are easier to check than giant ones.</li>
+          <li><b>Don't understand it? Ask.</b> “Explain this like I'm new to coding” works great.</li>
+          <li><b>No secrets in the book.</b> The recipe book is public, so never put phone numbers or passwords in it.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5. Missions (checked automatically from GitHub) -->
+    <section class="section section-tint" id="missions">
+      <div class="section-head">
+        <h2>Your missions</h2>
+        <p>Do these in our real recipe book. They <strong>tick themselves</strong> when GitHub sees you've done them. It can take a minute, so refresh if you need to.</p>
+      </div>
+      <p class="who" id="who"></p>
+      <ol class="missions" id="missions-list">
+        <li data-mission="pr"><span class="status">…</span><div><h3>Ask the head baker</h3><p>Open your first pull request.</p></div></li>
+        <li data-mission="merged"><span class="status">…</span><div><h3>Into the real book</h3><p>Get one of your pull requests merged, so your change goes live.</p></div></li>
+        <li data-mission="claude"><span class="status">…</span><div><h3>Bake with your helper</h3><p>Get a change made with Claude's help into the real book.</p></div></li>
+        <li data-mission="revert"><span class="status">…</span><div><h3>Undo it</h3><p>Use Revert to take a change back out.</p></div></li>
+        <li data-mission="five"><span class="status">…</span><div><h3>Five saves</h3><p>Have 5 of your saves (commits) in the real book. <span class="count" id="five-count"></span></p></div></li>
+      </ol>
+    </section>
+
+    <!-- 6. Diary -->
+    <section class="section" id="diary">
+      <div class="section-head">
+        <h2>The recipe book diary</h2>
+        <p>GitHub writes down everything that happens in our book: who changed what, when, and with whose help. Your teacher can see this diary too.</p>
+      </div>
+      <ul class="diary" id="diary">
+        <li class="diary-empty">Reading the diary from GitHub…</li>
+      </ul>
+      <p class="diary-more"><a href="https://github.com/sujjas/lilelus-html-css-js-demo/commits/main" target="_blank" rel="noopener">See the whole diary on GitHub ↗</a></p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Made by Lizzie while learning HTML, CSS, JavaScript and GitHub.</p>
+  </footer>
+
+  <script src="github.js"></script>
+</body>
+</html>
