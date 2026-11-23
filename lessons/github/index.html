@@ -198,7 +198,7 @@ body { margin: 0; }
 
 <div class="page">
   <div class="site-bar">
-    <a href="../../">← Lilelus Mini Bakery</a>
+    <a href="../../demo/">← Lilelus Mini Bakery</a>
     <nav>
       <a href="../../github/">Lizzie's GitHub page</a>
       <a href="GitHub_Session_Plan.pdf">Download the PDF</a>
@@ -215,8 +215,9 @@ body { margin: 0; }
     </div>
     <div class="links">
       <a href="https://github.com/sujjas/lilelus" target="_blank" rel="noopener">The repo ↗</a>
-      <a href="https://lilelus-html-css-js-demo.vercel.app" target="_blank" rel="noopener">The live site ↗</a>
-      <a href="https://lilelus-html-css-js-demo.vercel.app/github/" target="_blank" rel="noopener">Her GitHub page ↗</a>
+      <a href="https://lilelus.vercel.app/demo/" target="_blank" rel="noopener">The practice bakery ↗</a>
+      <a href="https://lilelus.vercel.app" target="_blank" rel="noopener">Mum's live site ↗</a>
+      <a href="https://lilelus.vercel.app/github/" target="_blank" rel="noopener">Her GitHub page ↗</a>
       <a href="https://vercel.com/dashboard" target="_blank" rel="noopener">Vercel dashboard ↗</a>
     </div>
   </header>
@@ -228,7 +229,7 @@ body { margin: 0; }
       <li><input type="checkbox" id="prep-1" checked><label for="prep-1"><strong>Lizzie is already invited.</strong> Her account <code>Lizzie-bizi</code> has write access to the repo (<code>sujjas/lilelus</code>), so she can make branches and pull requests herself.</label></li>
       <li><input type="checkbox" id="prep-1b" checked><label for="prep-1b"><strong>Her missions are on.</strong> Her GitHub page ticks missions for <code>Lizzie-bizi</code>. Nothing to do here.</label></li>
       <li><input type="checkbox" id="prep-2" checked><label for="prep-2"><strong>Auto-update: already tested.</strong> On 23 November, pushing the new GitHub page to <code>main</code> put it live on Vercel within a minute, with no manual deploy. Nothing to do here.</label></li>
-      <li><input type="checkbox" id="prep-3"><label for="prep-3"><strong>Tabs on her laptop:</strong> her GitHub page, the repo and the live site. <strong>On yours:</strong> the Vercel dashboard for <code>lilelus-html-css-js-demo</code>.</label></li>
+      <li><input type="checkbox" id="prep-3"><label for="prep-3"><strong>Tabs on her laptop:</strong> her GitHub page, the repo and the practice bakery. <strong>On yours:</strong> the Vercel dashboard for <code>lilelus</code>.</label></li>
       <li><input type="checkbox" id="prep-4"><label for="prep-4"><strong>Copy or print her sheet</strong> (the word bank and questions at the bottom of this page).</label></li>
     </ul>
     <p class="note"><b>Heads-up about preview links.</b> When you open a pull request, Vercel posts a <em>Preview</em> link. New Vercel projects protect previews behind a Vercel login, so it will open on your laptop but not on Lizzie's device. Show it on your screen. To make previews public, go to the Vercel project's <em>Settings → Deployment Protection</em>.</p>
@@ -279,7 +280,7 @@ body { margin: 0; }
     </div>
     <p class="answer">This is today's whole plan in one picture. Show it at the start, then again at the end once she's done it.</p>
 
-    <div class="rule"><strong>The golden rule:</strong> this repo is public, so anyone in the world can read it, forever. Never put phone numbers, passwords or secret codes in it. (That's why the demo has no WhatsApp number.)</div>
+    <div class="rule"><strong>The golden rule:</strong> this repo is public, so anyone in the world can read it, forever. Never put passwords, secret codes or anyone's private phone number in it. (Mum's shop WhatsApp number is fine: it's meant for customers and is already on her site.)</div>
 
     <p style="margin-top:16px"><strong>Quick check before building:</strong> “If you break something on a practice branch, does the live site break?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-1">Show answer</button><span class="answer" id="ans-1" hidden>(No. Only <code>main</code> goes live.)</span></p>
   </section>
@@ -288,6 +289,7 @@ body { margin: 0; }
   <section id="build">
     <div class="section-head"><h2>The build</h2><span class="time">45 min</span></div>
     <p>Each step is one dot in the history. <strong>Before every click, Lizzie predicts what will happen.</strong> She does the clicking on her own laptop, signed in as herself. You guide and ask the questions.</p>
+    <p class="note"><b>Practise in the demo folder only.</b> Mum's real site is in the same repo, at the main address. Today's change goes in <code>demo/index.html</code>, so the practice bakery changes and mum's site doesn't. Your approval rule on <code>main</code> means nothing reaches either site until you approve the pull request.</p>
 
     <ol class="history">
       <li class="commit" id="step-1">
@@ -301,7 +303,7 @@ body { margin: 0; }
               <ol><li>Open the repo.</li><li>Scroll slowly to the README at the bottom.</li></ol>
             </div>
             <div><span class="label">She checks</span>
-              <ul><li>Finds <code>index.html</code>, <code>style.css</code> and <code>script.js</code>: the same three layers from the demo.</li><li>Reads the README out loud.</li></ul>
+              <ul><li>Opens the <code>demo</code> folder and finds <code>index.html</code>, <code>style.css</code> and <code>script.js</code>: the same three layers from the practice bakery.</li><li>Notices mum's real site is in the main folder.</li><li>Reads the README out loud.</li></ul>
             </div>
           </div>
           <p class="predict"><span class="label">Predict</span>“What do you think the README is for?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-2">Show answer</button><span class="answer" id="ans-2" hidden>(It's the front page of the book: it tells visitors what the project is.)</span></p>
@@ -335,7 +337,7 @@ body { margin: 0; }
           <div class="roles">
             <div><span class="label">She clicks</span>
               <ol>
-                <li>Open <code>index.html</code> and click the pencil (Edit).</li>
+                <li>Open <code>demo/index.html</code> and click the pencil (Edit).</li>
                 <li>Find <code>&lt;h1&gt;Today's cakes&lt;/h1&gt;</code> and type her new heading.</li>
                 <li>Click <em>Commit changes…</em></li>
                 <li>Choose <em>Create a new branch</em>, name it <span class="branch-tag">lizzie-new-heading</span>, then <em>Propose changes</em>.</li>
@@ -385,10 +387,10 @@ body { margin: 0; }
           </div>
           <div class="roles">
             <div><span class="label">She clicks</span>
-              <ol><li>Click <em>Merge pull request</em>, then <em>Confirm merge</em>.</li><li><em>You</em> show the new deployment appearing in your Vercel dashboard.</li></ol>
+              <ol><li><em>You</em> approve the pull request (<em>Files changed → Review changes → Approve</em>). Then she clicks <em>Merge pull request</em> and <em>Confirm merge</em>.</li><li><em>You</em> show the new deployment appearing in your Vercel dashboard.</li></ol>
             </div>
             <div><span class="label">She checks</span>
-              <ul><li>Refreshes the live site on her own device every 30 seconds or so until her heading appears.</li></ul>
+              <ul><li>Refreshes the practice bakery (<code>/demo/</code>) every 30 seconds or so until her heading appears.</li></ul>
             </div>
           </div>
           <p class="predict"><span class="label">Predict</span>“How long until the live site changes: one second, one minute, or one hour?” <button type="button" class="show-answer" aria-expanded="false" aria-controls="ans-6">Show answer</button><span class="answer" id="ans-6" hidden>(Usually under a minute.)</span></p>
@@ -482,7 +484,7 @@ body { margin: 0; }
         <li>Why did we make a branch instead of changing <code>main</code> straight away? <span class="blank"></span></li>
         <li>What happened to the live site when we merged, and why? <span class="blank"></span></li>
         <li>Write a good commit message for: “I changed the button colour to green.” <span class="blank"></span></li>
-        <li>Why should you never put a phone number or password in a public repo? <span class="blank"></span></li>
+        <li>Why should you never put a password or secret code in a public repo? <span class="blank"></span></li>
       </ol>
     </div>
   </section>

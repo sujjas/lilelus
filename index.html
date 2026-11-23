@@ -1,144 +1,401 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lilelus Mini Bakery · HTML, CSS & JS demo</title>
-
-  <!-- Fonts from Google -->
+  <title>Lilelus Cakes &amp; More</title>
+  <meta name="description" content="Homemade celebration cakes, wedding cakes, cupcakes, everyday cakes and cookies by Lilelus Cakes & More. Order on WhatsApp." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
-
-  <!-- 🎨 CSS: the "icing". This one file decides how the whole site looks. -->
-  <link rel="stylesheet" href="style.css" id="site-css" />
-
-  <!-- The control panel has its OWN style, so it keeps working when you switch the site's CSS off. -->
-  <link rel="stylesheet" href="lab/lab.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- ===================================================
-       🍰 HTML: the "cake". Everything you can SEE or READ
-       on the page is written here first.
-       =================================================== -->
-  <div id="site">
+  <!-- SVG illustrations, reused by the product cards. Swap for real photos later (see README.md). -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="ill-celebration" viewBox="0 0 200 170">
+        <ellipse cx="100" cy="150" rx="78" ry="10" fill="currentColor" opacity=".18"/>
+        <rect x="38" y="92" width="124" height="54" rx="10" fill="#fff8ef"/>
+        <rect x="38" y="112" width="124" height="8" fill="var(--c2)"/>
+        <rect x="52" y="54" width="96" height="44" rx="9" fill="#fff8ef"/>
+        <path d="M52 66c0-7 4-12 10-12h76c6 0 10 5 10 12v6c-5 0-5 9-10 9s-5-7-10-7-5 10-11 10-5-10-10-10-5 8-11 8-5-8-10-8-5 9-10 9-5-9-10-9-4 4-4 4z" fill="var(--c1)"/>
+        <path d="M38 104c0-7 4-12 10-12h104c6 0 10 5 10 12v4c-6 0-6 8-12 8s-6-7-12-7-6 9-12 9-6-9-12-9-6 7-12 7-6-7-12-7-6 9-12 9-6-9-12-9-6 6-12 6z" fill="var(--c1)"/>
+        <rect x="72" y="30" width="6" height="24" rx="3" fill="var(--c2)"/>
+        <rect x="97" y="24" width="6" height="30" rx="3" fill="var(--c3)"/>
+        <rect x="122" y="30" width="6" height="24" rx="3" fill="var(--c2)"/>
+        <path d="M75 18c4 5 4 9 0 11-4-2-4-6 0-11z" fill="#f4a63b"/>
+        <path d="M100 12c4 5 4 9 0 11-4-2-4-6 0-11z" fill="#f4a63b"/>
+        <path d="M125 18c4 5 4 9 0 11-4-2-4-6 0-11z" fill="#f4a63b"/>
+        <circle cx="60" cy="133" r="3" fill="var(--c3)"/><circle cx="84" cy="136" r="3" fill="var(--c2)"/>
+        <circle cx="116" cy="133" r="3" fill="var(--c3)"/><circle cx="140" cy="136" r="3" fill="var(--c2)"/>
+      </symbol>
 
-    <header class="top-bar">
-      <a href="#" class="logo">Lilelus <span>Mini Bakery</span></a>
-      <nav>
+      <symbol id="ill-wedding" viewBox="0 0 200 170">
+        <ellipse cx="100" cy="152" rx="74" ry="9" fill="currentColor" opacity=".18"/>
+        <rect x="44" y="110" width="112" height="40" rx="6" fill="#fffaf3"/>
+        <rect x="60" y="74" width="80" height="38" rx="6" fill="#fffaf3"/>
+        <rect x="74" y="42" width="52" height="34" rx="6" fill="#fffaf3"/>
+        <path d="M44 120h112M60 84h80M74 52h52" stroke="var(--c1)" stroke-width="3" stroke-dasharray="1 7" stroke-linecap="round"/>
+        <path d="M44 144h112M60 108h80M74 72h52" stroke="var(--c2)" stroke-width="2"/>
+        <g fill="var(--c1)">
+          <circle cx="126" cy="40" r="9"/><circle cx="116" cy="36" r="6"/><circle cx="133" cy="31" r="5"/>
+          <circle cx="146" cy="76" r="7"/><circle cx="56" cy="110" r="7"/>
+        </g>
+        <path d="M110 44c6-4 10-2 12 2M138 80c3-3 8-3 9 1" stroke="var(--c3)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M120 34l8 12M48 116l10-8" stroke="var(--c3)" stroke-width="3" stroke-linecap="round"/>
+      </symbol>
+
+      <symbol id="ill-cupcake" viewBox="0 0 200 170">
+        <ellipse cx="100" cy="152" rx="56" ry="8" fill="currentColor" opacity=".18"/>
+        <path d="M58 92h84l-12 58H70z" fill="var(--c2)"/>
+        <path d="M72 92l4 58M86 92l2 58M100 92v58M114 92l-2 58M128 92l-4 58" stroke="#fff" stroke-opacity=".45" stroke-width="3"/>
+        <path d="M52 94c-6-14 6-26 18-24-2-16 14-28 30-22 4-14 26-14 30 2 14-2 24 12 18 26 10 6 6 20-6 20H62c-12 0-16-12-10-2z" fill="var(--c1)"/>
+        <path d="M70 70c10-4 22-2 30 4M100 48c10 2 20 10 22 22" stroke="#fff" stroke-opacity=".5" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <circle cx="104" cy="34" r="11" fill="#c43b4b"/>
+        <path d="M104 23c2-8 8-12 14-12" stroke="#5a7a3a" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <g fill="var(--c3)"><rect x="70" y="80" width="8" height="3" rx="1.5" transform="rotate(-30 74 81)"/><rect x="118" y="76" width="8" height="3" rx="1.5" transform="rotate(25 122 77)"/><rect x="92" y="64" width="8" height="3" rx="1.5" transform="rotate(60 96 65)"/><rect x="132" y="88" width="8" height="3" rx="1.5"/></g>
+      </symbol>
+
+      <symbol id="ill-everyday" viewBox="0 0 200 170">
+        <ellipse cx="100" cy="146" rx="80" ry="10" fill="currentColor" opacity=".18"/>
+        <path d="M36 90c0-20 28-34 64-34s64 14 64 34v40c0 8-6 12-14 12H50c-8 0-14-4-14-12z" fill="var(--c2)"/>
+        <path d="M36 92c0-20 28-34 64-34s64 14 64 34c0 6-6 8-10 4-4 8-12 8-16 2-6 8-16 8-20 0-6 8-16 8-22 0-4 8-14 8-18 0-6 6-14 4-16-2-6 4-14 2-16-4-4 4-10 2-10-4z" fill="var(--c1)"/>
+        <path d="M120 110l44 0v20c0 8-6 12-14 12h-30z" fill="#fff8ef" opacity=".0"/>
+        <g stroke="#fff" stroke-opacity=".55" stroke-width="3" stroke-linecap="round">
+          <path d="M60 116h20M92 124h18M124 114h20M70 132h14M110 134h16"/>
+        </g>
+        <g fill="var(--c3)"><circle cx="70" cy="70" r="4"/><circle cx="100" cy="64" r="4"/><circle cx="130" cy="70" r="4"/><circle cx="86" cy="80" r="3"/><circle cx="116" cy="80" r="3"/></g>
+      </symbol>
+
+      <symbol id="ill-cookie" viewBox="0 0 200 170">
+        <ellipse cx="100" cy="150" rx="64" ry="8" fill="currentColor" opacity=".18"/>
+        <path d="M100 26c34 0 60 26 60 60s-26 60-60 60-60-26-60-60c0-10 2-18 6-26 6 6 16 4 18-4 6 4 16 0 16-8-2-8 6-16 14-14 0-4 2-8 6-8z" fill="var(--c1)"/>
+        <path d="M100 34c28 2 50 24 50 52" stroke="#fff" stroke-opacity=".35" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <g fill="var(--c2)">
+          <path d="M78 70l10-3 4 9-9 5z"/><path d="M116 62l10 1 1 9-10 2z"/><path d="M128 100l9 4-3 9-9-3z"/>
+          <path d="M88 108l10 1 0 9-10 0z"/><path d="M62 98l8-4 5 8-8 5z"/><path d="M104 86l8 3-2 9-9-2z"/><path d="M100 128l9 2-2 8-8-2z"/>
+        </g>
+      </symbol>
+
+      <symbol id="ill-sugar" viewBox="0 0 200 170">
+        <ellipse cx="100" cy="150" rx="64" ry="8" fill="currentColor" opacity=".18"/>
+        <path d="M100 30l17 34 37 6-27 26 6 37-33-17-33 17 6-37-27-26 37-6z" fill="#f2d3a2" stroke="#e6bd7f" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M100 44l12 25 27 4-20 19 5 27-24-13-24 13 5-27-20-19 27-4z" fill="var(--c1)"/>
+        <g fill="#fff"><circle cx="100" cy="72" r="3"/><circle cx="86" cy="92" r="3"/><circle cx="114" cy="92" r="3"/><circle cx="100" cy="108" r="3"/></g>
+      </symbol>
+
+      <symbol id="ill-butter" viewBox="0 0 200 170">
+        <ellipse cx="100" cy="150" rx="70" ry="8" fill="currentColor" opacity=".18"/>
+        <circle cx="76" cy="96" r="44" fill="var(--c1)"/>
+        <circle cx="76" cy="96" r="34" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>
+        <circle cx="132" cy="84" r="40" fill="var(--c2)"/>
+        <circle cx="132" cy="84" r="16" fill="#c43b4b"/>
+        <circle cx="128" cy="80" r="5" fill="#fff" opacity=".45"/>
+        <circle cx="132" cy="84" r="31" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="3"/>
+      </symbol>
+
+      <symbol id="ill-oat" viewBox="0 0 200 170">
+        <ellipse cx="100" cy="150" rx="64" ry="8" fill="currentColor" opacity=".18"/>
+        <path d="M100 28c32 0 58 26 58 58 0 34-26 60-58 60S42 120 42 86c0-32 26-58 58-58z" fill="var(--c1)"/>
+        <g fill="var(--c2)" opacity=".9">
+          <ellipse cx="80" cy="66" rx="7" ry="4" transform="rotate(-20 80 66)"/><ellipse cx="122" cy="70" rx="7" ry="4" transform="rotate(30 122 70)"/>
+          <ellipse cx="70" cy="104" rx="7" ry="4" transform="rotate(10 70 104)"/><ellipse cx="132" cy="108" rx="7" ry="4" transform="rotate(-30 132 108)"/>
+          <ellipse cx="100" cy="124" rx="7" ry="4"/><ellipse cx="102" cy="88" rx="7" ry="4" transform="rotate(50 102 88)"/>
+        </g>
+        <g fill="#6b2f3a"><circle cx="92" cy="58" r="4"/><circle cx="116" cy="100" r="4"/><circle cx="84" cy="88" r="4"/><circle cx="124" cy="128" r="3"/><circle cx="72" cy="122" r="3"/></g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a href="#top" class="brand" aria-label="Lilelus Cakes and More, home">
+        <span class="brand-mark" aria-hidden="true">L</span>
+        <span class="brand-name">Lilelus <em>Cakes &amp; More</em></span>
+      </a>
+      <nav class="nav" aria-label="Main">
         <a href="#cakes">Cakes</a>
-        <a href="#box">My box</a>
-        <a href="playground.html">Playground</a>
-        <a href="github/">GitHub</a>
+        <a href="#cookies">Cookies</a>
+        <a href="#how">How it works</a>
       </nav>
-    </header>
-
-    <main>
-      <section class="hero">
-        <h1>Today's cakes</h1>
-        <p>Freshly baked this morning. Pick your favourites and add them to your box.</p>
-        <button id="theme-button" class="button button-light">Change colours</button>
-      </section>
-
-      <section id="cakes" class="cakes">
-        <article class="cake-card">
-          <div class="cake-picture">🎂</div>
-          <h2>Birthday cake</h2>
-          <p>Vanilla sponge with pink icing and sprinkles.</p>
-          <p class="price">UGX 80,000</p>
-          <button class="button add-button" data-name="Birthday cake" data-price="80000">Add to box</button>
-        </article>
-
-        <article class="cake-card">
-          <div class="cake-picture">🧁</div>
-          <h2>Cupcakes (6)</h2>
-          <p>Six chocolate cupcakes with buttercream swirls.</p>
-          <p class="price">UGX 30,000</p>
-          <button class="button add-button" data-name="Cupcakes (6)" data-price="30000">Add to box</button>
-        </article>
-
-        <article class="cake-card">
-          <div class="cake-picture">🍪</div>
-          <h2>Cookies (12)</h2>
-          <p>Crunchy edges, soft middles, lots of chocolate chips.</p>
-          <p class="price">UGX 20,000</p>
-          <button class="button add-button" data-name="Cookies (12)" data-price="20000">Add to box</button>
-        </article>
-      </section>
-
-      <section id="box" class="box">
-        <h2>My box</h2>
-        <p id="box-summary">Your box is empty.</p>
-        <ul id="box-list"></ul>
-        <button id="clear-button" class="button button-light">Empty my box</button>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <p>Made by Lizzie while learning HTML, CSS and JavaScript.</p>
-    </footer>
-
-  </div>
-  <!-- ============ end of the site ============ -->
-
-
-  <!-- 🎛️ The control panel (the "lab"). It is NOT part of the bakery site.
-       It's a tool that switches the site's CSS and JavaScript on and off. -->
-  <aside class="lab" id="lab" aria-label="Layer control panel">
-    <div class="lab-head">
-      <strong>Layer switches</strong>
-      <button class="lab-collapse" id="lab-collapse" aria-expanded="true" aria-controls="lab-body" title="Hide or show the panel">–</button>
+      <a href="#order" class="btn btn-primary btn-sm">Order now</a>
     </div>
+  </header>
 
-    <div class="lab-body" id="lab-body">
-      <div class="lab-row lab-html">
-        <div class="lab-label">
-          <span class="lab-dot"></span>
-          <div>
-            <b>HTML</b> <small>the cake</small>
-            <p>What's on the page: words, pictures, buttons.</p>
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Homemade, made to order</p>
+          <h1>Cakes and cookies baked for the days you'll remember.</h1>
+          <p class="lede">Birthdays, weddings, office treats or just a Tuesday. Tell us what you'd like and we'll bake it fresh, just for you.</p>
+          <div class="hero-actions">
+            <a href="#order" class="btn btn-primary">Request an order</a>
+            <a href="#cakes" class="btn btn-ghost">See what we bake</a>
+          </div>
+          <ul class="hero-points">
+            <li>Baked fresh for every order</li>
+            <li>Custom flavours &amp; designs</li>
+            <li>Pickup or delivery</li>
+          </ul>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-plate">
+            <svg class="ill" style="--c1:#e58aa6;--c2:#f6d27a;--c3:#8fb6a0"><use href="#ill-celebration"/></svg>
+          </div>
+          <div class="hero-chip hero-chip-a">
+            <svg class="ill" style="--c1:#b97a4a;--c2:#4a2a1d"><use href="#ill-cookie"/></svg>
+          </div>
+          <div class="hero-chip hero-chip-b">
+            <svg class="ill" style="--c1:#f4b6c8;--c2:#a8c9b5;--c3:#f6d27a"><use href="#ill-cupcake"/></svg>
           </div>
         </div>
-        <button class="lab-pill" id="xray-toggle" aria-pressed="false">X-ray</button>
       </div>
+    </section>
 
-      <div class="lab-row lab-css">
-        <div class="lab-label">
-          <span class="lab-dot"></span>
-          <div>
-            <b>CSS</b> <small>the icing</small>
-            <p>How it looks: colours, fonts, spacing, layout.</p>
-          </div>
+    <!-- Cakes -->
+    <section id="cakes" class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">The cake menu</p>
+          <h2>Our cakes</h2>
+          <p>Every cake is baked to order. Pick a style, choose your flavour, and we'll take care of the rest.</p>
         </div>
-        <button class="lab-switch" id="css-toggle" role="switch" aria-checked="true" aria-label="CSS on or off"><span></span></button>
-      </div>
 
-      <div class="lab-row lab-js">
-        <div class="lab-label">
-          <span class="lab-dot"></span>
-          <div>
-            <b>JavaScript</b> <small>the shopkeeper</small>
-            <p>What happens when you click or type.</p>
-          </div>
+        <div class="grid grid-cakes">
+          <article class="card reveal">
+            <div class="card-media" style="--bg:#fbe3e8">
+              <svg class="ill" style="--c1:#e58aa6;--c2:#f6d27a;--c3:#8fb6a0"><use href="#ill-celebration"/></svg>
+            </div>
+            <div class="card-body">
+              <h3>Birthday &amp; celebration</h3>
+              <p>Bright, fun cakes for birthdays, anniversaries, baby showers and graduations, decorated to your theme.</p>
+              <ul class="tags"><li>Vanilla</li><li>Chocolate</li><li>Red velvet</li><li>Marble</li></ul>
+              <button class="btn btn-card" data-product="Birthday &amp; celebration cake">Order this</button>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <div class="card-media" style="--bg:#f3ede2">
+              <svg class="ill" style="--c1:#d9a0ae;--c2:#e7d9c2;--c3:#7f9c7b"><use href="#ill-wedding"/></svg>
+            </div>
+            <div class="card-body">
+              <h3>Wedding cakes</h3>
+              <p>Elegant tiered cakes for your big day. We'll meet to plan flavours, size and design together.</p>
+              <ul class="tags"><li>Fruit cake</li><li>Lemon</li><li>Vanilla</li><li>Tiered</li></ul>
+              <button class="btn btn-card" data-product="Wedding cake">Order this</button>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <div class="card-media" style="--bg:#e5efe7">
+              <svg class="ill" style="--c1:#f4b6c8;--c2:#8fb6a0;--c3:#f6d27a"><use href="#ill-cupcake"/></svg>
+            </div>
+            <div class="card-body">
+              <h3>Cupcakes</h3>
+              <p>Boxes of frosted cupcakes, perfect for parties, school events, offices and gifting.</p>
+              <ul class="tags"><li>By the dozen</li><li>Mixed flavours</li><li>Custom toppers</li></ul>
+              <button class="btn btn-card" data-product="Cupcakes">Order this</button>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <div class="card-media" style="--bg:#fbecd6">
+              <svg class="ill" style="--c1:#c9844f;--c2:#e9b77a;--c3:#5a3424"><use href="#ill-everyday"/></svg>
+            </div>
+            <div class="card-body">
+              <h3>Everyday cakes</h3>
+              <p>Simple, comforting cakes for tea time, family visits or just because you deserve one.</p>
+              <ul class="tags"><li>Banana</li><li>Carrot</li><li>Lemon drizzle</li><li>Chocolate</li></ul>
+              <button class="btn btn-card" data-product="Everyday cake">Order this</button>
+            </div>
+          </article>
         </div>
-        <button class="lab-switch" id="js-toggle" role="switch" aria-checked="true" aria-label="JavaScript on or off"><span></span></button>
       </div>
+    </section>
 
-      <p class="lab-tip" id="lab-tip" aria-live="polite">Try switching the CSS off. What do you think will happen?</p>
+    <!-- Cookies -->
+    <section id="cookies" class="section section-tint">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">And more</p>
+          <h2>Cookies</h2>
+          <p>Crisp edges, soft middles. Order a box for yourself, or by the hundred for your event.</p>
+        </div>
 
-      <div class="lab-links">
-        <a href="playground.html">Code playground →</a>
-        <a href="github/">How GitHub works →</a>
-        <a href="https://github.com/sujjas/lilelus" target="_blank" rel="noopener">See the files on GitHub ↗</a>
+        <div class="grid grid-cookies">
+          <article class="mini reveal">
+            <div class="mini-media" style="--bg:#f6e6d4">
+              <svg class="ill" style="--c1:#c58a55;--c2:#4a2a1d"><use href="#ill-cookie"/></svg>
+            </div>
+            <h3>Chocolate chip</h3>
+            <p>The classic, loaded with chocolate.</p>
+          </article>
+          <article class="mini reveal">
+            <div class="mini-media" style="--bg:#fbe3e8">
+              <svg class="ill" style="--c1:#f2a7bd"><use href="#ill-sugar"/></svg>
+            </div>
+            <h3>Decorated sugar cookies</h3>
+            <p>Iced to match your party or brand.</p>
+          </article>
+          <article class="mini reveal">
+            <div class="mini-media" style="--bg:#fbf0d4">
+              <svg class="ill" style="--c1:#eecb85;--c2:#e8b86a"><use href="#ill-butter"/></svg>
+            </div>
+            <h3>Butter &amp; jam cookies</h3>
+            <p>Melt-in-your-mouth, a teatime favourite.</p>
+          </article>
+          <article class="mini reveal">
+            <div class="mini-media" style="--bg:#efe7da">
+              <svg class="ill" style="--c1:#c99b68;--c2:#f1dcb7"><use href="#ill-oat"/></svg>
+            </div>
+            <h3>Oatmeal raisin</h3>
+            <p>Chewy, wholesome and spiced.</p>
+          </article>
+        </div>
+        <div class="center">
+          <button class="btn btn-primary" data-product="Cookies">Order cookies</button>
+        </div>
       </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how" class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Simple ordering</p>
+          <h2>How it works</h2>
+        </div>
+        <ol class="steps">
+          <li class="reveal">
+            <span class="step-num">1</span>
+            <h3>Tell us what you'd like</h3>
+            <p>Fill in the order form below with your product, flavour, size and date.</p>
+          </li>
+          <li class="reveal">
+            <span class="step-num">2</span>
+            <h3>Send it on WhatsApp</h3>
+            <p>Your order opens in WhatsApp, ready to send. We'll reply to confirm details and price.</p>
+          </li>
+          <li class="reveal">
+            <span class="step-num">3</span>
+            <h3>Pick up or get it delivered</h3>
+            <p>We bake it fresh, then you collect it or we bring it to you.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Order form -->
+    <section id="order" class="section section-order">
+      <div class="wrap order-inner">
+        <div class="order-intro">
+          <p class="eyebrow">Order request</p>
+          <h2>What can we bake for you?</h2>
+          <p>Fill this in and tap <strong>Send on WhatsApp</strong>. Your order will open in WhatsApp, already written out, so you just press send.</p>
+          <p class="order-note">Please order at least <strong>3 days ahead</strong>, and <strong>3 weeks ahead</strong> for wedding cakes.</p>
+        </div>
+
+        <form id="order-form" class="order-form" novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+              <span class="error" data-for="name">Please enter your name.</span>
+            </div>
+            <div class="field">
+              <label for="phone">Phone number</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required />
+              <span class="error" data-for="phone">Please enter a phone number we can reach you on.</span>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="product">What would you like?</label>
+              <select id="product" name="product" required>
+                <option value="">Choose a product</option>
+                <option>Birthday &amp; celebration cake</option>
+                <option>Wedding cake</option>
+                <option>Cupcakes</option>
+                <option>Everyday cake</option>
+                <option>Cookies</option>
+                <option>Something else</option>
+              </select>
+              <span class="error" data-for="product">Please choose a product.</span>
+            </div>
+            <div class="field">
+              <label for="size" id="size-label">Size</label>
+              <select id="size" name="size" required disabled>
+                <option value="">Choose a product first</option>
+              </select>
+              <span class="error" data-for="size">Please choose a size or quantity.</span>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="flavour">Flavour <span class="opt">(optional)</span></label>
+              <input id="flavour" name="flavour" type="text" placeholder="e.g. Chocolate with vanilla frosting" />
+            </div>
+            <div class="field">
+              <label for="date">Date needed</label>
+              <input id="date" name="date" type="date" required />
+              <span class="error" data-for="date">Please choose a date at least 3 days from today.</span>
+            </div>
+          </div>
+
+          <fieldset class="field">
+            <legend>Pickup or delivery?</legend>
+            <div class="choice-group">
+              <label class="choice"><input type="radio" name="fulfilment" value="Pickup" checked /> <span>I'll pick it up</span></label>
+              <label class="choice"><input type="radio" name="fulfilment" value="Delivery" /> <span>Please deliver</span></label>
+            </div>
+          </fieldset>
+
+          <div class="field" id="address-field" hidden>
+            <label for="address">Delivery location</label>
+            <input id="address" name="address" type="text" autocomplete="street-address" placeholder="Area, street, landmark" />
+            <span class="error" data-for="address">Please tell us where to deliver.</span>
+          </div>
+
+          <div class="field">
+            <label for="inscription">Message on the cake <span class="opt">(optional)</span></label>
+            <input id="inscription" name="inscription" type="text" maxlength="60" placeholder="e.g. Happy 30th, Grace!" />
+          </div>
+
+          <div class="field">
+            <label for="notes">Design ideas or anything else <span class="opt">(optional)</span></label>
+            <textarea id="notes" name="notes" rows="4" placeholder="Colours, theme, allergies, budget… you can also send us photos on WhatsApp."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-whatsapp">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3c-.2.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3 1.8.8 2.5.8 3.4.7.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4l-.4-.2z"/></svg>
+            Send on WhatsApp
+          </button>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <p class="brand-name footer-brand">Lilelus <em>Cakes &amp; More</em></p>
+        <p class="muted">Homemade cakes and cookies, baked to order.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#order">Order a cake</a>
+        <a href="#" id="footer-whatsapp" target="_blank" rel="noopener">Chat on WhatsApp</a>
+      </div>
+      <p class="muted small">&copy; <span id="year"></span> Lilelus Cakes &amp; More</p>
     </div>
-  </aside>
+  </footer>
 
-  <!-- ⚡ JavaScript: the "shopkeeper". It makes things happen when you click. -->
   <script src="script.js"></script>
-
-  <!-- The control panel's own JavaScript -->
-  <script src="lab/lab.js"></script>
 </body>
 </html>

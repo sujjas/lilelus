@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lilelus Mini Bakery · HTML, CSS & JS demo</title>
+
+  <!-- Fonts from Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- 🎨 CSS: the "icing". This one file decides how the whole site looks. -->
+  <link rel="stylesheet" href="style.css" id="site-css" />
+
+  <!-- The control panel has its OWN style, so it keeps working when you switch the site's CSS off. -->
+  <link rel="stylesheet" href="lab/lab.css" />
+</head>
+<body>
+
+  <!-- ===================================================
+       🍰 HTML: the "cake". Everything you can SEE or READ
+       on the page is written here first.
+       =================================================== -->
+  <div id="site">
+
+    <header class="top-bar">
+      <a href="#" class="logo">Lilelus <span>Mini Bakery</span></a>
+      <nav>
+        <a href="#cakes">Cakes</a>
+        <a href="#box">My box</a>
+        <a href="playground.html">Playground</a>
+        <a href="../github/">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Today's cakes</h1>
+        <p>Freshly baked this morning. Pick your favourites and add them to your box.</p>
+        <button id="theme-button" class="button button-light">Change colours</button>
+      </section>
+
+      <section id="cakes" class="cakes">
+        <article class="cake-card">
+          <div class="cake-picture">🎂</div>
+          <h2>Birthday cake</h2>
+          <p>Vanilla sponge with pink icing and sprinkles.</p>
+          <p class="price">UGX 80,000</p>
+          <button class="button add-button" data-name="Birthday cake" data-price="80000">Add to box</button>
+        </article>
+
+        <article class="cake-card">
+          <div class="cake-picture">🧁</div>
+          <h2>Cupcakes (6)</h2>
+          <p>Six chocolate cupcakes with buttercream swirls.</p>
+          <p class="price">UGX 30,000</p>
+          <button class="button add-button" data-name="Cupcakes (6)" data-price="30000">Add to box</button>
+        </article>
+
+        <article class="cake-card">
+          <div class="cake-picture">🍪</div>
+          <h2>Cookies (12)</h2>
+          <p>Crunchy edges, soft middles, lots of chocolate chips.</p>
+          <p class="price">UGX 20,000</p>
+          <button class="button add-button" data-name="Cookies (12)" data-price="20000">Add to box</button>
+        </article>
+      </section>
+
+      <section id="box" class="box">
+        <h2>My box</h2>
+        <p id="box-summary">Your box is empty.</p>
+        <ul id="box-list"></ul>
+        <button id="clear-button" class="button button-light">Empty my box</button>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Made by Lizzie while learning HTML, CSS and JavaScript.</p>
+    </footer>
+
+  </div>
+  <!-- ============ end of the site ============ -->
+
+
+  <!-- 🎛️ The control panel (the "lab"). It is NOT part of the bakery site.
+       It's a tool that switches the site's CSS and JavaScript on and off. -->
+  <aside class="lab" id="lab" aria-label="Layer control panel">
+    <div class="lab-head">
+      <strong>Layer switches</strong>
+      <button class="lab-collapse" id="lab-collapse" aria-expanded="true" aria-controls="lab-body" title="Hide or show the panel">–</button>
+    </div>
+
+    <div class="lab-body" id="lab-body">
+      <div class="lab-row lab-html">
+        <div class="lab-label">
+          <span class="lab-dot"></span>
+          <div>
+            <b>HTML</b> <small>the cake</small>
+            <p>What's on the page: words, pictures, buttons.</p>
+          </div>
+        </div>
+        <button class="lab-pill" id="xray-toggle" aria-pressed="false">X-ray</button>
+      </div>
+
+      <div class="lab-row lab-css">
+        <div class="lab-label">
+          <span class="lab-dot"></span>
+          <div>
+            <b>CSS</b> <small>the icing</small>
+            <p>How it looks: colours, fonts, spacing, layout.</p>
+          </div>
+        </div>
+        <button class="lab-switch" id="css-toggle" role="switch" aria-checked="true" aria-label="CSS on or off"><span></span></button>
+      </div>
+
+      <div class="lab-row lab-js">
+        <div class="lab-label">
+          <span class="lab-dot"></span>
+          <div>
+            <b>JavaScript</b> <small>the shopkeeper</small>
+            <p>What happens when you click or type.</p>
+          </div>
+        </div>
+        <button class="lab-switch" id="js-toggle" role="switch" aria-checked="true" aria-label="JavaScript on or off"><span></span></button>
+      </div>
+
+      <p class="lab-tip" id="lab-tip" aria-live="polite">Try switching the CSS off. What do you think will happen?</p>
+
+      <div class="lab-links">
+        <a href="playground.html">Code playground →</a>
+        <a href="../github/">How GitHub works →</a>
+        <a href="https://github.com/sujjas/lilelus" target="_blank" rel="noopener">See the files on GitHub ↗</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ⚡ JavaScript: the "shopkeeper". It makes things happen when you click. -->
+  <script src="script.js"></script>
+
+  <!-- The control panel's own JavaScript -->
+  <script src="lab/lab.js"></script>
+</body>
+</html>

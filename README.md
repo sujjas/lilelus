@@ -1,37 +1,35 @@
-# Lilelus Mini Bakery: how HTML, CSS & JavaScript work
+# Lilelus Cakes & More
 
-A tiny bakery website for learning the three languages every website is made of.
+Mum's cake business website, plus everything Lizzie uses to learn how websites are made.
 
-**Live site:** https://lilelus-html-css-js-demo.vercel.app
+**Live:** https://lilelus.vercel.app
+
+## What's where
+
+| Address | Folder | What it is |
+|---|---|---|
+| [lilelus.vercel.app](https://lilelus.vercel.app) | main folder | **Mum's real site.** Customers order cakes here. |
+| [/demo/](https://lilelus.vercel.app/demo/) | `demo/` | Lizzie's **practice bakery**, with switches for CSS, JavaScript and X-ray |
+| [/demo/playground.html](https://lilelus.vercel.app/demo/playground.html) | `demo/` | The **code playground** |
+| [/github/](https://lilelus.vercel.app/github/) | `github/` | **How GitHub works**, in cake words, with Lizzie's missions |
+| [/lessons/github/](https://lilelus.vercel.app/lessons/github/) | `lessons/` | The teacher's session plan |
 
 ## The three layers
 
 Think of a website like a cake:
 
-| Layer | File | It's like… | It decides… |
-|---|---|---|---|
-| **HTML** | [`index.html`](index.html) | the cake | **what's there**: headings, words, pictures, buttons |
-| **CSS** | [`style.css`](style.css) | the icing | **how it looks**: colours, fonts, sizes, layout |
-| **JavaScript** | [`script.js`](script.js) | the shopkeeper | **what happens**: when you click a button, something changes |
+| Layer | It's like… | It decides… |
+|---|---|---|
+| **HTML** | the cake | **what's there**: headings, words, pictures, buttons |
+| **CSS** | the icing | **how it looks**: colours, fonts, sizes, layout |
+| **JavaScript** | the shopkeeper | **what happens**: when you click a button, something changes |
 
-## Try it
+You'll find all three in the main folder (mum's site: `index.html`, `styles.css`, `script.js`) and in `demo/` (the practice bakery: `index.html`, `style.css`, `script.js`).
 
-1. Open the live site. In the dark **Layer switches** panel:
-   - Switch **CSS** off. The page goes plain, but every word and button is still there. That's the HTML on its own.
-   - Switch **JavaScript** off, then click **Add to box**. Nothing happens, because the shopkeeper went home.
-   - Press **X-ray** to see the HTML tags hiding behind everything.
-2. Open the **Code playground** and change the code yourself. Always **guess what will happen first**, then press **Run**.
-3. Open **[How GitHub works](https://lilelus-html-css-js-demo.vercel.app/github/)** to learn GitHub in cake words, practise with a pretend recipe book, and do your missions.
+## Rules for this recipe book
 
-## What's in this folder
+- **Practise in `demo/`.** The main folder is mum's real shop.
+- **Every change goes through a pull request.** Changes to `main` need your teacher's approval before they go live.
+- **No secrets.** This repo is public, so never put passwords, secret codes or anyone's private phone number in it. Mum's shop WhatsApp number is fine: it's meant for customers.
 
-```
-index.html       ← the bakery page (HTML)
-style.css        ← how the bakery looks (CSS)
-script.js        ← what the bakery does (JavaScript)
-playground.html  ← the code playground page
-github/          ← the "How GitHub works" page
-lab/             ← the control panel and playground tools (you don't need to read these yet)
-```
-
-Every time new code is pushed to this GitHub repo, Vercel updates the live site automatically.
+Every time `main` changes, Vercel updates the live site automatically.
