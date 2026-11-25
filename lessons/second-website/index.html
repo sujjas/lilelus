@@ -205,6 +205,12 @@ body { margin: 0; }
 .ask { margin: 0 0 12px; padding: 10px 14px; border-radius: 10px; background: var(--branch-soft); font-size: 0.97rem; }
 .ask .label { color: var(--branch); margin-right: 6px; }
 .flow-simple { margin: 0; padding-left: 22px; display: grid; gap: 8px; }
+.why { margin: 0 0 10px; padding: 10px 14px; border-radius: 10px; background: var(--main-soft); font-size: 0.97rem; }
+.why .label { color: var(--main); margin-right: 6px; }
+.part-2 { margin-top: 48px; padding-top: 32px; border-top: 3px dashed var(--line); }
+.part2-title { font-size: clamp(1.6rem, 5vw, 2.1rem); margin: 6px 0 14px; }
+.group-title { margin: 28px 0 12px; font-size: 1.2rem; }
+@media print { .part-2, #staff-group { break-before: page; } }
 @media print { body { font-size: 14px; } section { padding-top: 22px; } .part, details, .handin { break-inside: avoid; } }
 </style>
 </head>
@@ -216,6 +222,7 @@ body { margin: 0; }
     <a href="../../demo/">← Lilelus Mini Bakery</a>
     <nav>
       <a href="../hosting/">Hosting lesson</a>
+      <a href="#part-2">Part 2: NeoLife fixes</a>
       <a href="My_Second_Website.pdf">Download the PDF</a>
     </nav>
   </div>
@@ -339,6 +346,109 @@ body { margin: 0; }
       <details><summary>Claude did something I didn't want</summary>
         <p><em>“Please undo that last change.”</em> Nothing is lost: GitHub keeps every version.</p>
       </details>
+    </div>
+  </section>
+
+  <!-- ================= PART 2 ================= -->
+  <section id="part-2" class="part-2">
+    <span class="label">Part 2</span>
+    <h2 class="part2-title">Make your NeoLife site even better</h2>
+    <p>Your NeoLife site is <strong>really good</strong>. The staff system keeps patients' details private, and only staff can sign in. Well done!</p>
+    <p>We tested every button with pretend patients and found some things to fix. Each one has a simple <strong>why</strong>, a prompt to give Claude, and boxes to tick when you've checked it works.</p>
+    <p class="note"><b>Test with pretend patients only.</b> All the pretend patients have phone numbers starting with <code>+256 700 000</code>. Never type in a real person's details to test.</p>
+
+    <h3 class="group-title">On the website everyone sees</h3>
+
+    <div class="card part">
+      <h3>1. Fill in the empty boxes</h3>
+      <p class="why"><span class="label">Why</span>Your site still says <code>[Phone number]</code>, <code>[Street address]</code> and <code>[Email address]</code>. It's like a birthday card that says “Dear [name]”. People can't call or find the clinic yet.</p>
+      <p class="ask"><span class="label">Try asking</span>“Replace the placeholders with the clinic's real phone number, address and email: <em>[the real details]</em>. Also fill in the answers about insurance and how to pay.”</p>
+      <ul class="checks">
+        <li><input type="checkbox" id="p2-blank-ask"><label for="p2-blank-ask">You asked the clinic for the real details first. Don't guess!</label></li>
+        <li><input type="checkbox" id="p2-blank-none"><label for="p2-blank-none">No square brackets <code>[ ]</code> are left anywhere on the site.</label></li>
+        <li><input type="checkbox" id="p2-blank-call"><label for="p2-blank-call">On a phone, tapping <strong>Call Now</strong> opens the right number.</label></li>
+      </ul>
+    </div>
+
+    <div class="card part">
+      <h3>2. Tell people the real emergency number</h3>
+      <p class="why"><span class="label">Why</span>The red box says “call your local emergency number”. But if someone is very sick and scared, they need the actual number to call, right there.</p>
+      <p class="ask"><span class="label">Try asking</span>“In the emergency box, show this emergency number as a big button people can tap: <em>[number the clinic gives you]</em>.”</p>
+      <ul class="checks">
+        <li><input type="checkbox" id="p2-emerg"><label for="p2-emerg">The clinic told you which number to show, and tapping it on a phone starts a call.</label></li>
+      </ul>
+    </div>
+
+    <div class="card part">
+      <h3>3. Write the opening hours in just one place</h3>
+      <p class="why"><span class="label">Why</span>The opening hours are written in <strong>four</strong> places: the table, the “call to book” box, the bottom of the page, and the JavaScript. It's like writing your birthday on four cards. If it changes, you have to remember to fix all four, and if you forget one, people get confused.</p>
+      <p class="ask"><span class="label">Try asking</span>“The opening hours are written in four places. Keep them in one list in script.js and fill in all the other places from it. Explain how it works simply.”</p>
+      <ul class="checks">
+        <li><input type="checkbox" id="p2-hours-one"><label for="p2-hours-one">You changed Saturday's hours in one place, and all four places changed.</label></li>
+        <li><input type="checkbox" id="p2-hours-back"><label for="p2-hours-back">Then you changed it back!</label></li>
+      </ul>
+    </div>
+
+    <div class="card part">
+      <h3>4. Use the clinic's clock, not the visitor's</h3>
+      <p class="why"><span class="label">Why</span>The “Open now” sign looks at the clock on the <strong>visitor's</strong> phone. If someone in London looks at your site at 9 in the morning, it's already 12 in Kampala, but the sign thinks it's 9. The clinic is in Kampala, so the sign should use Kampala time.</p>
+      <p class="ask"><span class="label">Try asking</span>“Make the Open now / Closed now sign use Kampala time (East Africa Time), whatever country the visitor is in.”</p>
+      <ul class="checks">
+        <li><input type="checkbox" id="p2-clock"><label for="p2-clock">Claude explained how you can check it. Ask: <em>“How can I test this without travelling?”</em></label></li>
+      </ul>
+    </div>
+
+    <h3 class="group-title" id="staff-group">In the staff system</h3>
+
+    <div class="card part">
+      <h3>5. Stop birthdays from the future</h3>
+      <p class="why"><span class="label">Why</span>We registered a pretend patient born in the year <strong>2030</strong>, and the system said “OK!” and called him 0 months old. Nobody can be born in the future. The form should say “That can't be right” when a date is wrong.</p>
+      <p class="ask"><span class="label">Try asking</span>“In the staff system, don't allow a date of birth in the future. Also don't allow a follow-up date in the past, or an admission or discharge time in the future. Show a friendly message when a date is wrong.”</p>
+      <ul class="checks">
+        <li><input type="checkbox" id="p2-dob"><label for="p2-dob">Try a birthday in 2030. Does it say no?</label></li>
+        <li><input type="checkbox" id="p2-followup"><label for="p2-followup">Try a follow-up date last year. Does it say no?</label></li>
+      </ul>
+    </div>
+
+    <div class="card part">
+      <h3>6. Blood pressure must look like blood pressure</h3>
+      <p class="why"><span class="label">Why</span>We typed <strong>“banana”</strong> as a blood pressure, and the system saved it! Blood pressure is always two numbers with a line between them, like <code>120/80</code>. A doctor reading “banana” wouldn't know what to do.</p>
+      <p class="ask"><span class="label">Try asking</span>“Only let staff type blood pressure as two numbers with a slash, like 120/80. Show a helpful message if they type something else.”</p>
+      <ul class="checks">
+        <li><input type="checkbox" id="p2-bp-banana"><label for="p2-bp-banana">“banana” is now blocked.</label></li>
+        <li><input type="checkbox" id="p2-bp-ok"><label for="p2-bp-ok"><code>120/80</code> still works.</label></li>
+      </ul>
+    </div>
+
+    <div class="card part">
+      <h3>7. Count the days the same way everywhere</h3>
+      <p class="why"><span class="label">Why</span>For the same patient, the Dashboard says <strong>Day 4</strong>, but the Inpatients page says <strong>3</strong> days. It's like two clocks in the same room showing different times: which one do you believe?</p>
+      <p class="ask"><span class="label">Try asking</span>“The Dashboard and the Inpatients page count a patient's days differently. Make them use the same counting, and label it clearly, like ‘Day 4’ everywhere.”</p>
+      <ul class="checks">
+        <li><input type="checkbox" id="p2-days"><label for="p2-days">Pick one patient. The Dashboard, the Inpatients page and their admission page all show the same day.</label></li>
+      </ul>
+    </div>
+
+    <div class="card part">
+      <h3>8. Make the tables fit on a phone</h3>
+      <p class="why"><span class="label">Why</span>On a phone, the tables are too wide, so some columns hide off the side of the screen. Nurses often use phones, and they might not know they have to swipe sideways to see the rest.</p>
+      <p class="ask"><span class="label">Try asking</span>“On phones, show each row of the tables as a small card instead, so nothing is hidden off the side.”</p>
+      <ul class="checks">
+        <li><input type="checkbox" id="p2-phone"><label for="p2-phone">You opened the Outpatients page on a phone and could read everything without swiping sideways.</label></li>
+      </ul>
+    </div>
+
+    <div class="card part">
+      <h3>9. Warn about the same patient twice</h3>
+      <p class="why"><span class="label">Why</span>If the same person is registered twice, their visits get split between two files, like having half your homework in one book and half in another. The doctor might miss something important, like an allergy.</p>
+      <p class="ask"><span class="label">Try asking</span>“When staff register a new patient, check if someone with the same phone number, or the same name and birthday, already exists. If so, show them and ask ‘Is this the same person?’”</p>
+      <ul class="checks">
+        <li><input type="checkbox" id="p2-dup"><label for="p2-dup">Try registering a pretend patient again with the same phone number. Does it warn you?</label></li>
+      </ul>
+    </div>
+
+    <div class="handin">
+      <p><strong>One fix at a time.</strong> After each one, test it, save it with a clear note, and check the live site. When they're all done, send your teacher your NeoLife link.</p>
     </div>
   </section>
 </div>
