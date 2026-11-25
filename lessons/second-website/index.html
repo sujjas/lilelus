@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Lizzie's assignment: build and host a second website by prompting Claude, step by step.">
+<meta name="robots" content="noindex">
+<title>My Second Website</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column; the 45-minute build is drawn as a commit history (a line with a dot per step). */
+:root {
+  --bg: #f6f7f3;
+  --surface: #ffffff;
+  --fg: #1d2420;
+  --muted: #5b665f;
+  --line: #dde3dc;
+  --main: #1f7a4d;        /* the main branch / merge green */
+  --main-soft: #e3f1e9;
+  --branch: #7a4fd0;      /* practice-branch purple */
+  --branch-soft: #efe9fb;
+  --warn: #9a5a00;
+  --warn-soft: #fff3df;
+  --code-bg: #eef1ec;
+  --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141815; --surface: #1c221e; --fg: #e8ede9; --muted: #a3ada6; --line: #2f3832;
+    --main: #4fc187; --main-soft: #1d3327; --branch: #b192f2; --branch-soft: #2a2340;
+    --warn: #f0b45a; --warn-soft: #3a2e1a; --code-bg: #252c27; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141815; --surface: #1c221e; --fg: #e8ede9; --muted: #a3ada6; --line: #2f3832;
+  --main: #4fc187; --main-soft: #1d3327; --branch: #b192f2; --branch-soft: #2a2340;
+  --warn: #f0b45a; --warn-soft: #3a2e1a; --code-bg: #252c27; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: 17px/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.page { max-width: 760px; margin: 0 auto; padding-block: 40px 72px; }
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 6vw, 2.9rem); letter-spacing: -0.015em; }
+h2 { font-size: 1.55rem; margin-bottom: 14px; }
+h3 { font-size: 1.15rem; }
+p { margin: 0 0 12px; }
+a { color: var(--main); font-weight: 700; text-underline-offset: 3px; }
+code, .mono { font-family: var(--mono); font-size: 0.86em; }
+code { background: var(--code-bg); padding: 1px 6px; border-radius: 5px; overflow-wrap: anywhere; }
+strong { font-weight: 700; }
+
+.label {
+  font: 700 0.74rem/1 var(--body);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Header */
+header { display: grid; gap: 14px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+.goal { font-size: 1.12rem; max-width: 62ch; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--muted); font-size: 0.95rem; }
+.meta b { color: var(--fg); }
+.links { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 0.95rem; }
+
+section { padding-top: 40px; }
+.section-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.section-head h2 { margin: 0; }
+.time { font: 500 0.82rem/1 var(--mono); color: var(--muted); }
+
+/* Checklists */
+.checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.checks li { display: flex; gap: 12px; align-items: flex-start; }
+.checks input { flex: none; width: 20px; height: 20px; margin-top: 3px; accent-color: var(--main); }
+.checks label { cursor: pointer; }
+.checks input:checked + label { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line); }
+
+.note {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--warn-soft);
+  color: var(--fg);
+  font-size: 0.96rem;
+}
+.note b { color: var(--warn); }
+
+/* Concept: metaphor table */
+.say { font-style: italic; color: var(--muted); }
+.table-wrap { overflow-x: auto; margin: 6px 0 4px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.97rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 700 0.74rem/1.2 var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+td:first-child { font-weight: 700; white-space: nowrap; }
+
+.graph { margin: 18px 0 6px; padding: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow-x: auto; }
+.graph pre { margin: 0; }
+
+.rule {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-left: 4px solid var(--main);
+  background: var(--main-soft);
+  border-radius: 0 10px 10px 0;
+}
+
+/* Build: commit-history timeline */
+.history { list-style: none; margin: 8px 0 0; padding: 0; position: relative; }
+.history::before {
+  content: ""; position: absolute; left: 11px; top: 14px; bottom: 14px; width: 3px;
+  background: var(--main); border-radius: 2px;
+}
+.commit { position: relative; padding: 0 0 26px 44px; }
+.commit:last-child { padding-bottom: 0; }
+.commit::before {
+  content: ""; position: absolute; left: 3px; top: 6px; width: 19px; height: 19px; border-radius: 50%;
+  background: var(--surface); border: 4px solid var(--main);
+}
+.commit.on-branch::before { border-color: var(--branch); }
+.commit.on-branch .card { border-color: color-mix(in srgb, var(--branch) 35%, var(--line)); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.card-top .mono { color: var(--muted); font-size: 0.78rem; display: block; margin-bottom: 4px; }
+.done { flex: none; display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--muted); cursor: pointer; }
+.done input { width: 18px; height: 18px; accent-color: var(--main); }
+.commit.is-done .card { opacity: 0.6; }
+
+.roles { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.roles > div { min-width: 0; }
+.roles ol, .roles ul { margin: 6px 0 0; padding-left: 20px; }
+.roles li { margin-bottom: 4px; }
+.predict {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--branch-soft);
+  font-size: 0.97rem;
+}
+.predict .label { color: var(--branch); margin-right: 6px; }
+.answer { color: var(--muted); font-size: 0.92rem; }
+.branch-tag { font-family: var(--mono); font-size: 0.8em; color: var(--branch); background: var(--branch-soft); padding: 1px 6px; border-radius: 5px; }
+
+/* Troubleshooting */
+.fixes { display: grid; gap: 10px; }
+details { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; }
+summary { cursor: pointer; font-weight: 700; }
+details p { margin: 8px 0 0; }
+
+/* Lizzie's sheet */
+.kid-sheet { background: var(--surface); border: 2px dashed var(--line); border-radius: 16px; padding: 22px; }
+.words { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px 20px; margin: 10px 0 0; }
+.words div { min-width: 0; }
+.words dt { font-family: var(--mono); font-weight: 500; color: var(--main); }
+.words dd { margin: 2px 0 0; font-size: 0.95rem; }
+.qs { margin: 8px 0 0; padding-left: 22px; display: grid; gap: 14px; }
+.blank { display: block; border-bottom: 1px solid var(--line); height: 26px; }
+
+:focus-visible { outline: 3px solid var(--branch); outline-offset: 2px; }
+
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .page { padding-block: 24px 56px; }
+  .roles { grid-template-columns: 1fr; }
+  .commit { padding-left: 36px; }
+  .card { padding: 14px; }
+  td:first-child { white-space: normal; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+body { margin: 0; }
+.site-bar { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between; padding-block: 14px; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
+.site-bar a { text-decoration: none; }
+.site-bar nav { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.show-answer { margin-left: 6px; padding: 2px 10px; border: 1.5px solid var(--branch); border-radius: 999px; background: transparent; color: var(--branch); font: 700 0.8rem var(--body); cursor: pointer; vertical-align: baseline; }
+.show-answer[aria-expanded="true"] { background: var(--branch); color: var(--surface); }
+.show-answer + .answer { margin-left: 6px; }
+@media print {
+  .site-bar, .show-answer { display: none !important; }
+  .answer[hidden] { display: inline !important; }
+}
+.starter { margin: 10px 0 0; padding: 14px 16px; background: var(--code-bg); border-radius: 10px; overflow-x: auto; font: 500 0.8rem/1.55 var(--mono); }
+.big-idea { margin: 6px 0 14px; padding: 18px 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; font-size: 1.08rem; }
+.big-idea p:last-child { margin: 0; }
+@media print { .starter { white-space: pre-wrap; } }
+.ideas { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 0; padding: 0; list-style: none; }
+.ideas li { padding: 6px 12px; border-radius: 999px; background: var(--branch-soft); color: var(--fg); font-size: 0.95rem; }
+.handin { margin-top: 14px; padding: 18px 20px; border: 2px solid var(--main); border-radius: 14px; background: var(--main-soft); }
+.handin p:last-child { margin: 0; }
+.checks + h3, .card + h3 { margin-top: 22px; }
+.part { margin-bottom: 14px; }
+.part h3 { margin-bottom: 10px; }
+.ask { margin: 0 0 12px; padding: 10px 14px; border-radius: 10px; background: var(--branch-soft); font-size: 0.97rem; }
+.ask .label { color: var(--branch); margin-right: 6px; }
+.flow-simple { margin: 0; padding-left: 22px; display: grid; gap: 8px; }
+@media print { body { font-size: 14px; } section { padding-top: 22px; } .part, details, .handin { break-inside: avoid; } }
+</style>
+</head>
+<body>
+
+
+<div class="page">
+  <div class="site-bar">
+    <a href="../../demo/">← Lilelus Mini Bakery</a>
+    <nav>
+      <a href="../hosting/">Hosting lesson</a>
+      <a href="My_Second_Website.pdf">Download the PDF</a>
+    </nav>
+  </div>
+  <header>
+    <span class="label">Assignment · for Lizzie</span>
+    <h1>Build your second website, with Claude</h1>
+    <p class="goal">Make a new website about something <strong>you</strong> love, by telling Claude what to build, one step at a time. Claude is your helper. <strong>You</strong> decide what goes on your site.</p>
+    <div class="meta">
+            <span><b>Hand in:</b> your website link</span>
+    </div>
+  </header>
+
+  <!-- How -->
+  <section id="how">
+    <div class="section-head"><h2>How to work with Claude</h2></div>
+    <ol class="flow-simple">
+      <li><strong>Ask for one thing at a time.</strong> Small cakes are easier to check than giant ones.</li>
+      <li><strong>Look at what changed.</strong> Open the site and check it does what you asked.</li>
+      <li><strong>Say yes, or ask again.</strong> Not right? Tell Claude what's wrong: <em>“Make the heading bigger and pink.”</em></li>
+      <li><strong>Write it down.</strong> Copy each prompt into your journal.</li>
+    </ol>
+  </section>
+
+  <!-- 1. Pick -->
+  <section id="pick">
+    <div class="section-head"><h2>1. Pick your topic</h2></div>
+    <p>Choose anything you like, except cakes (you've done those!). Some ideas:</p>
+    <ul class="ideas">
+      <li>My favourite book or film</li>
+      <li>A hobby I love</li>
+      <li>My dream holiday</li>
+      <li>An animal I find amazing</li>
+      <li>A recipe I can make</li>
+      <li>A game and how to play it</li>
+    </ul>
+  </section>
+
+  <!-- 2. Build -->
+  <section id="build">
+    <div class="section-head"><h2>2. Build it, step by step</h2></div>
+    <p>Each step has a prompt to try. Use your own words if you like. Then tick the boxes when <strong>you've checked</strong> it worked.</p>
+
+    <div class="card part">
+      <h3>Step 1: Start the site</h3>
+      <p class="ask"><span class="label">Try asking</span>“Make me a new website about <em>[my topic]</em>. It needs a big heading, two sections of words, a list of my top 3, and a link to another website. Put it in a new GitHub repo called <em>[name]</em>.”</p>
+      <ul class="checks">
+        <li><input type="checkbox" id="c-repo"><label for="c-repo">There's a <strong>new repo</strong> on your GitHub.</label></li>
+        <li><input type="checkbox" id="c-html"><label for="c-html">The page has a <strong>heading</strong>, <strong>2 sections</strong>, a <strong>list</strong> and a <strong>link</strong>.</label></li>
+        <li><input type="checkbox" id="c-words"><label for="c-words">The words are <strong>yours</strong>. Change anything that doesn't sound like you.</label></li>
+      </ul>
+    </div>
+
+    <div class="card part">
+      <h3>Step 2: Make it look like you</h3>
+      <p class="ask"><span class="label">Try asking</span>“Use <em>[colours]</em> and a fun font. Make the buttons change colour when I hover over them. Make sure it looks good on a phone.”</p>
+      <ul class="checks">
+        <li><input type="checkbox" id="c-colours"><label for="c-colours">Your own <strong>colours</strong> and <strong>font</strong>.</label></li>
+        <li><input type="checkbox" id="c-hover"><label for="c-hover">Something <strong>changes when you hover</strong> over it.</label></li>
+        <li><input type="checkbox" id="c-phone"><label for="c-phone">You opened it on a <strong>phone</strong>, and it looks good.</label></li>
+      </ul>
+    </div>
+
+    <div class="card part">
+      <h3>Step 3: Add a photo</h3>
+      <p class="ask"><span class="label">Try asking</span>“Add this photo to my site, in an images folder, with alt words that describe it.” (Attach the photo.)</p>
+      <ul class="checks">
+        <li><input type="checkbox" id="c-img"><label for="c-img">The <strong>photo shows</strong> on the page.</label></li>
+        <li><input type="checkbox" id="c-alt"><label for="c-alt">You read the <strong>alt words</strong>. Do they describe the photo well?</label></li>
+      </ul>
+    </div>
+
+    <div class="card part">
+      <h3>Step 4: Put it in the shop window</h3>
+      <p class="ask"><span class="label">Try asking</span>“Host my site on Vercel and connect it to my GitHub repo, so it updates by itself.”</p>
+      <ul class="checks">
+        <li><input type="checkbox" id="c-vercel"><label for="c-vercel">You have a <strong><code>.vercel.app</code> link</strong> that works on a phone.</label></li>
+        <li><input type="checkbox" id="c-auto"><label for="c-auto">You asked for a small change, waited a minute and refreshed. Did the live site <strong>change by itself</strong>?</label></li>
+      </ul>
+    </div>
+
+    <div class="card part">
+      <h3>Bonus: a button that does something</h3>
+      <p class="ask"><span class="label">Try asking</span>“Add a button that shows a random fun fact about <em>[my topic]</em> when I click it.”</p>
+      <ul class="checks">
+        <li><input type="checkbox" id="c-js"><label for="c-js">The button works, and you can explain <strong>which file</strong> made it work.</label></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. Rules -->
+  <section id="rules">
+    <div class="section-head"><h2>3. Rules</h2></div>
+    <ul class="checks">
+      <li><input type="checkbox" id="r-safe"><label for="r-safe"><strong>Keep yourself safe.</strong> Your site is public. No full name, school, home address, phone number or photos of faces.</label></li>
+      <li><input type="checkbox" id="r-photos"><label for="r-photos"><strong>Use your own photos.</strong> Take them yourself, or use free photos from a site like <a href="https://unsplash.com" target="_blank" rel="noopener">unsplash.com</a>. Don't copy photos from other websites: they belong to the person who took them.</label></li>
+      <li><input type="checkbox" id="r-read"><label for="r-read"><strong>Don't understand something? Ask.</strong> <em>“Explain what you just did, simply.”</em> You should be able to say what each file does.</label></li>
+      <li><input type="checkbox" id="r-journal"><label for="r-journal"><strong>Keep your prompt journal.</strong> Write down every prompt, and put a ⭐ next to the ones that worked best.</label></li>
+    </ul>
+  </section>
+
+  <!-- 4. Hand in -->
+  <section id="handin">
+    <div class="section-head"><h2>4. Hand it in</h2></div>
+    <div class="handin">
+      <p>When it's finished, send your teacher <strong>your live website link</strong> (the <code>.vercel.app</code> one).</p>
+      <p>Before you send it, open it on a phone and check everything works.</p>
+    </div>
+  </section>
+
+  <!-- 5. Stuck -->
+  <section id="stuck">
+    <div class="section-head"><h2>Stuck?</h2></div>
+    <p>Tell Claude <strong>exactly</strong> what's wrong and what you expected. For example:</p>
+    <div class="fixes">
+      <details><summary>My photo doesn't show</summary>
+        <p><em>“My photo doesn't show on the live site. Can you find out why and explain it simply?”</em> (Phone photos saved as <code>.HEIC</code> often don't show: ask Claude to change it to JPG.)</p>
+      </details>
+      <details><summary>My live site didn't change</summary>
+        <p><em>“I changed my site but the .vercel.app link still shows the old one. Why?”</em> (Often the change is still on a branch and needs merging.)</p>
+      </details>
+      <details><summary>Claude did something I didn't want</summary>
+        <p><em>“Please undo that last change.”</em> Nothing is lost: GitHub keeps every version.</p>
+      </details>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  const KEY = "second-website-checks";
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { saved = {}; }
+  document.querySelectorAll('input[type="checkbox"]').forEach(function (box) {
+    if (saved[box.id]) box.checked = true;
+    box.addEventListener("change", function () {
+      saved[box.id] = box.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) { /* not saved: fine */ }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

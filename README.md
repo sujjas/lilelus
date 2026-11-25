@@ -14,6 +14,7 @@ Mum's cake business website, plus everything Lizzie uses to learn how websites a
 | [/github/](https://lilelus.vercel.app/github/) | `github/` | **How GitHub works**, in cake words, with Lizzie's missions |
 | [/lessons/github/](https://lilelus.vercel.app/lessons/github/) | `lessons/` | The teacher's GitHub session plan |
 | [/lessons/hosting/](https://lilelus.vercel.app/lessons/hosting/) | `lessons/` | The teacher's hosting session plan |
+| [/lessons/second-website/](https://lilelus.vercel.app/lessons/second-website/) | `lessons/` | **Lizzie's assignment:** build and host a second website |
 
 ## The three layers
 
