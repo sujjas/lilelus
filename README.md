@@ -12,7 +12,8 @@ Mum's cake business website, plus everything Lizzie uses to learn how websites a
 | [/demo/](https://lilelus.vercel.app/demo/) | `demo/` | Lizzie's **practice bakery**, with switches for CSS, JavaScript and X-ray |
 | [/demo/playground.html](https://lilelus.vercel.app/demo/playground.html) | `demo/` | The **code playground** |
 | [/github/](https://lilelus.vercel.app/github/) | `github/` | **How GitHub works**, in cake words, with Lizzie's missions |
-| [/lessons/github/](https://lilelus.vercel.app/lessons/github/) | `lessons/` | The teacher's session plan |
+| [/lessons/github/](https://lilelus.vercel.app/lessons/github/) | `lessons/` | The teacher's GitHub session plan |
+| [/lessons/hosting/](https://lilelus.vercel.app/lessons/hosting/) | `lessons/` | The teacher's hosting session plan |
 
 ## The three layers
 

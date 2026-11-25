@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A simple 60-minute session plan for teaching Lizzie what hosting is, using Vercel.">
+<meta name="robots" content="noindex">
+<title>Hosting Session Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column; the 45-minute build is drawn as a commit history (a line with a dot per step). */
+:root {
+  --bg: #f6f7f3;
+  --surface: #ffffff;
+  --fg: #1d2420;
+  --muted: #5b665f;
+  --line: #dde3dc;
+  --main: #1f7a4d;        /* the main branch / merge green */
+  --main-soft: #e3f1e9;
+  --branch: #7a4fd0;      /* practice-branch purple */
+  --branch-soft: #efe9fb;
+  --warn: #9a5a00;
+  --warn-soft: #fff3df;
+  --code-bg: #eef1ec;
+  --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141815; --surface: #1c221e; --fg: #e8ede9; --muted: #a3ada6; --line: #2f3832;
+    --main: #4fc187; --main-soft: #1d3327; --branch: #b192f2; --branch-soft: #2a2340;
+    --warn: #f0b45a; --warn-soft: #3a2e1a; --code-bg: #252c27; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141815; --surface: #1c221e; --fg: #e8ede9; --muted: #a3ada6; --line: #2f3832;
+  --main: #4fc187; --main-soft: #1d3327; --branch: #b192f2; --branch-soft: #2a2340;
+  --warn: #f0b45a; --warn-soft: #3a2e1a; --code-bg: #252c27; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: 17px/1.6 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.page { max-width: 760px; margin: 0 auto; padding-block: 40px 72px; }
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 6vw, 2.9rem); letter-spacing: -0.015em; }
+h2 { font-size: 1.55rem; margin-bottom: 14px; }
+h3 { font-size: 1.15rem; }
+p { margin: 0 0 12px; }
+a { color: var(--main); font-weight: 700; text-underline-offset: 3px; }
+code, .mono { font-family: var(--mono); font-size: 0.86em; }
+code { background: var(--code-bg); padding: 1px 6px; border-radius: 5px; overflow-wrap: anywhere; }
+strong { font-weight: 700; }
+
+.label {
+  font: 700 0.74rem/1 var(--body);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Header */
+header { display: grid; gap: 14px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+.goal { font-size: 1.12rem; max-width: 62ch; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--muted); font-size: 0.95rem; }
+.meta b { color: var(--fg); }
+.links { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 0.95rem; }
+
+section { padding-top: 40px; }
+.section-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.section-head h2 { margin: 0; }
+.time { font: 500 0.82rem/1 var(--mono); color: var(--muted); }
+
+/* Checklists */
+.checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.checks li { display: flex; gap: 12px; align-items: flex-start; }
+.checks input { flex: none; width: 20px; height: 20px; margin-top: 3px; accent-color: var(--main); }
+.checks label { cursor: pointer; }
+.checks input:checked + label { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line); }
+
+.note {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--warn-soft);
+  color: var(--fg);
+  font-size: 0.96rem;
+}
+.note b { color: var(--warn); }
+
+/* Concept: metaphor table */
+.say { font-style: italic; color: var(--muted); }
+.table-wrap { overflow-x: auto; margin: 6px 0 4px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.97rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 700 0.74rem/1.2 var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+td:first-child { font-weight: 700; white-space: nowrap; }
+
+.graph { margin: 18px 0 6px; padding: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow-x: auto; }
+.graph pre { margin: 0; }
+
+.rule {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-left: 4px solid var(--main);
+  background: var(--main-soft);
+  border-radius: 0 10px 10px 0;
+}
+
+/* Build: commit-history timeline */
+.history { list-style: none; margin: 8px 0 0; padding: 0; position: relative; }
+.history::before {
+  content: ""; position: absolute; left: 11px; top: 14px; bottom: 14px; width: 3px;
+  background: var(--main); border-radius: 2px;
+}
+.commit { position: relative; padding: 0 0 26px 44px; }
+.commit:last-child { padding-bottom: 0; }
+.commit::before {
+  content: ""; position: absolute; left: 3px; top: 6px; width: 19px; height: 19px; border-radius: 50%;
+  background: var(--surface); border: 4px solid var(--main);
+}
+.commit.on-branch::before { border-color: var(--branch); }
+.commit.on-branch .card { border-color: color-mix(in srgb, var(--branch) 35%, var(--line)); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.card-top .mono { color: var(--muted); font-size: 0.78rem; display: block; margin-bottom: 4px; }
+.done { flex: none; display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--muted); cursor: pointer; }
+.done input { width: 18px; height: 18px; accent-color: var(--main); }
+.commit.is-done .card { opacity: 0.6; }
+
+.roles { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.roles > div { min-width: 0; }
+.roles ol, .roles ul { margin: 6px 0 0; padding-left: 20px; }
+.roles li { margin-bottom: 4px; }
+.predict {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--branch-soft);
+  font-size: 0.97rem;
+}
+.predict .label { color: var(--branch); margin-right: 6px; }
+.answer { color: var(--muted); font-size: 0.92rem; }
+.branch-tag { font-family: var(--mono); font-size: 0.8em; color: var(--branch); background: var(--branch-soft); padding: 1px 6px; border-radius: 5px; }
+
+/* Troubleshooting */
+.fixes { display: grid; gap: 10px; }
+details { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; }
+summary { cursor: pointer; font-weight: 700; }
+details p { margin: 8px 0 0; }
+
+/* Lizzie's sheet */
+.kid-sheet { background: var(--surface); border: 2px dashed var(--line); border-radius: 16px; padding: 22px; }
+.words { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px 20px; margin: 10px 0 0; }
+.words div { min-width: 0; }
+.words dt { font-family: var(--mono); font-weight: 500; color: var(--main); }
+.words dd { margin: 2px 0 0; font-size: 0.95rem; }
+.qs { margin: 8px 0 0; padding-left: 22px; display: grid; gap: 14px; }
+.blank { display: block; border-bottom: 1px solid var(--line); height: 26px; }
+
+:focus-visible { outline: 3px solid var(--branch); outline-offset: 2px; }
+
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .page { padding-block: 24px 56px; }
+  .roles { grid-template-columns: 1fr; }
+  .commit { padding-left: 36px; }
+  .card { padding: 14px; }
+  td:first-child { white-space: normal; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+body { margin: 0; }
+.site-bar { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between; padding-block: 14px; border-bottom: 1px solid var(--line); font-size: 0.95rem; }
+.site-bar a { text-decoration: none; }
+.site-bar nav { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.show-answer { margin-left: 6px; padding: 2px 10px; border: 1.5px solid var(--branch); border-radius: 999px; background: transparent; color: var(--branch); font: 700 0.8rem var(--body); cursor: pointer; vertical-align: baseline; }
+.show-answer[aria-expanded="true"] { background: var(--branch); color: var(--surface); }
+.show-answer + .answer { margin-left: 6px; }
+@media print {
+  .site-bar, .show-answer { display: none !important; }
+  .answer[hidden] { display: inline !important; }
+}
+.starter { margin: 10px 0 0; padding: 14px 16px; background: var(--code-bg); border-radius: 10px; overflow-x: auto; font: 500 0.8rem/1.55 var(--mono); }
+.big-idea { margin: 6px 0 14px; padding: 18px 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; font-size: 1.08rem; }
+.big-idea p:last-child { margin: 0; }
+@media print { .starter { white-space: pre-wrap; } }
+</style>
+</head>
+<body>
+
+
+<div class="page">
+  <div class="site-bar">
+    <a href="../../demo/">← Lilelus Mini Bakery</a>
+    <nav>
+      <a href="../github/">GitHub lesson</a>
+      <a href="Hosting_Session_Plan.pdf">Download the PDF</a>
+    </nav>
+  </div>
+  <header>
+    <span class="label">Session plan · 60 minutes</span>
+    <h1>Hosting: from your kitchen to the shop window</h1>
+    <p class="goal">By the end, Lizzie can say what <strong>hosting</strong> is, and she will have put a tiny website of her own on the internet with Vercel, with a link anyone can open on their phone.</p>
+    <div class="meta">
+      <span><b>10 min</b> idea</span>
+      <span><b>40 min</b> build</span>
+      <span><b>10 min</b> explain back</span>
+    </div>
+    <div class="links">
+      <a href="https://vercel.com/drop" target="_blank" rel="noopener">Vercel Drop ↗</a>
+      <a href="https://vercel.com/dashboard" target="_blank" rel="noopener">Vercel dashboard ↗</a>
+      <a href="https://lilelus.vercel.app" target="_blank" rel="noopener">Mum's live site ↗</a>
+    </div>
+  </header>
+
+  <!-- Before class -->
+  <section id="prep">
+    <div class="section-head"><h2>Before class</h2><span class="time">about 10 min</span></div>
+    <ul class="checks" data-group="prep">
+      <li><input type="checkbox" id="prep-1"><label for="prep-1"><strong>Vercel is signed in</strong> on Lizzie's laptop, in her sister's account. Open <a href="https://vercel.com/drop" target="_blank" rel="noopener">vercel.com/drop</a> to check it shows the drop box.</label></li>
+      <li><input type="checkbox" id="prep-2"><label for="prep-2"><strong>A phone nearby</strong> (yours or mum's), to open her link at the end.</label></li>
+      <li><input type="checkbox" id="prep-3"><label for="prep-3"><strong>Copy or print her sheet</strong> (the words and questions at the bottom of this page).</label></li>
+    </ul>
+  </section>
+
+  <!-- Concept -->
+  <section id="idea">
+    <div class="section-head"><h2>The idea</h2><span class="time">10 min</span></div>
+    <div class="big-idea">
+      <p>A website on your laptop is like a cake in your <strong>kitchen</strong>. Only people in your house can see it.</p>
+      <p><strong>Hosting</strong> is putting it in a <strong>shop window</strong>, so anyone in the world can come and see it, any time.</p>
+      <p><strong>Vercel is the shop.</strong> It keeps your website on its computers, which are always on, and gives it an address.</p>
+    </div>
+    <p class="say">Say it like this: “Your laptop goes to sleep. Vercel's computers never do. That's why your site needs a host.”</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Hosting word</th><th>In the bakery</th></tr></thead>
+        <tbody>
+          <tr><td>Hosting</td><td>Putting the cake in a shop window for everyone</td></tr>
+          <tr><td>Host (Vercel)</td><td>The shop that's always open</td></tr>
+          <tr><td>Address (URL)</td><td>The shop's address, like <code>lilelus.vercel.app</code></td></tr>
+          <tr><td>Deploy</td><td>Carrying the cake to the shop and putting it out</td></tr>
+          <tr><td>Live</td><td>It's in the window now. People can see it.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:16px"><strong>She already knows a hosted site:</strong> mum's. When she merged her pull requests this week, Vercel put her changes in the window for her.</p>
+
+    <div class="rule"><strong>The golden rule:</strong> a hosted site is public. Anyone can see it. No full name, school, home address, phone number or photos of faces.</div>
+  </section>
+
+  <!-- Build -->
+  <section id="build">
+    <div class="section-head"><h2>The build</h2><span class="time">40 min</span></div>
+    <p><strong>Before every click, Lizzie guesses what will happen.</strong> She does the clicking. You ask the questions.</p>
+
+    <ol class="history">
+      <li class="commit" id="step-1">
+        <div class="card">
+          <div class="card-top">
+            <div><span class="mono">step 1 · 5 min</span><h3>Kitchen or shop?</h3></div>
+            <label class="done"><input type="checkbox" id="done-1"> Done</label>
+          </div>
+          <div class="roles">
+            <div><span class="label">She does</span>
+              <ol><li>Open <code>lilelus.vercel.app</code> on the laptop, then on the phone.</li><li>Look at the address bar on both.</li></ol>
+            </div>
+            <div><span class="label">She checks</span>
+              <ul><li>It works on both, because it's hosted.</li></ul>
+            </div>
+          </div>
+          <p class="predict"><span class="label">Guess</span>“If a website is only saved on your laptop, can mum open it on her phone?” <button class="show-answer" type="button" aria-expanded="false" aria-controls="ans-1">Show answer</button><span class="answer" id="ans-1" hidden>(No. It's still in the kitchen. That's why we need hosting.)</span></p>
+        </div>
+      </li>
+
+      <li class="commit" id="step-2">
+        <div class="card">
+          <div class="card-top">
+            <div><span class="mono">step 2 · 10 min</span><h3>Make a tiny site</h3></div>
+            <label class="done"><input type="checkbox" id="done-2"> Done</label>
+          </div>
+          <div class="roles">
+            <div><span class="label">She does</span>
+              <ol>
+                <li>Make a folder on the desktop called <code>my-first-site</code>.</li>
+                <li>Inside it, make a file called <code>index.html</code> and paste the starter below. (Or ask Claude: <em>“Make me a one-page website about my favourite cakes, in one file called index.html.”</em>)</li>
+                <li>Change the words to her own.</li>
+                <li>Double-click <code>index.html</code> to open it.</li>
+              </ol>
+            </div>
+            <div><span class="label">She checks</span>
+              <ul><li>The page opens.</li><li>The address bar starts with <code>file://</code>. That means it's still in the kitchen.</li></ul>
+            </div>
+          </div>
+<pre class="starter">&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;My favourite cakes&lt;/title&gt;
+  &lt;style&gt;
+    body { font-family: sans-serif; background: #fff4f6; text-align: center; padding: 40px; }
+    h1 { color: #b5375b; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;My favourite cakes&lt;/h1&gt;
+  &lt;p&gt;Hi! This is my first website on the internet.&lt;/p&gt;
+  &lt;p&gt;My top three: chocolate, red velvet and lemon.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+          <p class="predict"><span class="label">Guess</span>“Why must the file be called <code>index.html</code>?” <button class="show-answer" type="button" aria-expanded="false" aria-controls="ans-2">Show answer</button><span class="answer" id="ans-2" hidden>(It's the front door. When someone visits the address, the host opens <code>index.html</code> first.)</span></p>
+        </div>
+      </li>
+
+      <li class="commit" id="step-3">
+        <div class="card">
+          <div class="card-top">
+            <div><span class="mono">step 3 · 10 min</span><h3>Put it in the shop window</h3></div>
+            <label class="done"><input type="checkbox" id="done-3"> Done</label>
+          </div>
+          <div class="roles">
+            <div><span class="label">She does</span>
+              <ol>
+                <li>Go to <code>vercel.com/drop</code>.</li>
+                <li>Drag the <code>my-first-site</code> folder onto the page.</li>
+                <li>Give the project a name, like <code>lizzies-cakes</code>. Then click <em>Deploy</em>.</li>
+                <li>Open the link it gives her, on the laptop and on the phone.</li>
+              </ol>
+            </div>
+            <div><span class="label">She checks</span>
+              <ul><li>The address now ends in <code>.vercel.app</code>, not <code>file://</code>.</li><li>It works on the phone. Send it to mum!</li></ul>
+            </div>
+          </div>
+          <p class="predict"><span class="label">Guess</span>“If you close your laptop now, will the site still work on the phone?” <button class="show-answer" type="button" aria-expanded="false" aria-controls="ans-3">Show answer</button><span class="answer" id="ans-3" hidden>(Yes! It lives on Vercel's computers now, not on the laptop. Try it.)</span></p>
+        </div>
+      </li>
+
+      <li class="commit" id="step-4">
+        <div class="card">
+          <div class="card-top">
+            <div><span class="mono">step 4 · 10 min</span><h3>Change the window display</h3></div>
+            <label class="done"><input type="checkbox" id="done-4"> Done</label>
+          </div>
+          <div class="roles">
+            <div><span class="label">She does</span>
+              <ol>
+                <li>Change something in <code>index.html</code>, like a new colour or a new favourite cake. Save it.</li>
+                <li>Refresh the <code>.vercel.app</code> link.</li>
+                <li>In the Vercel dashboard, open her project and drag the folder onto it again.</li>
+                <li>Refresh the link again.</li>
+              </ol>
+            </div>
+            <div><span class="label">She checks</span>
+              <ul><li>The first refresh shows the old page. The second shows the new one.</li><li>Opens <em>Deployments</em>: each drop is saved there as its own version.</li></ul>
+            </div>
+          </div>
+          <p class="predict"><span class="label">Guess</span>“You saved the file. Why didn't the live site change straight away?” <button class="show-answer" type="button" aria-expanded="false" aria-controls="ans-4">Show answer</button><span class="answer" id="ans-4" hidden>(You changed the cake in the kitchen. You have to carry it to the shop again: that's deploying.)</span></p>
+        </div>
+      </li>
+
+      <li class="commit" id="step-5">
+        <div class="card">
+          <div class="card-top">
+            <div><span class="mono">step 5 · 5 min</span><h3>Compare with mum's site</h3></div>
+            <label class="done"><input type="checkbox" id="done-5"> Done</label>
+          </div>
+          <div class="roles">
+            <div><span class="label">You show</span>
+              <ol><li>On your Vercel dashboard, open the <code>lilelus</code> project → <em>Deployments</em>.</li><li>Find the deployments from her merged pull requests this week.</li></ol>
+            </div>
+            <div><span class="label">She spots</span>
+              <ul><li>Nobody dragged a folder for mum's site. Vercel is connected to GitHub, so it deploys by itself every time <code>main</code> changes.</li></ul>
+            </div>
+          </div>
+          <p class="predict"><span class="label">Guess</span>“Which is easier when you change things often: dragging a folder, or GitHub delivering it for you?” <button class="show-answer" type="button" aria-expanded="false" aria-controls="ans-5">Show answer</button><span class="answer" id="ans-5" hidden>(GitHub. It's like a delivery van that takes every new recipe to the shop by itself.)</span></p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Troubleshooting -->
+  <section id="fixes">
+    <div class="section-head"><h2>If something goes wrong</h2></div>
+    <div class="fixes">
+      <details><summary>The link shows “404: Not Found”</summary>
+        <p>Vercel can't find the front door. Check the file is called exactly <code>index.html</code> (not <code>Index.html</code> or <code>index.html.txt</code>), and that it's inside the folder she dropped.</p>
+      </details>
+      <details><summary>The page shows the code instead of a web page</summary>
+        <p>The file was saved as text, often <code>index.html.txt</code>. In TextEdit on a Mac, use <em>Format → Make Plain Text</em> first, then save as <code>index.html</code>.</p>
+      </details>
+      <details><summary>Vercel asks her to sign up</summary>
+        <p>The account isn't signed in on this browser. Sign in, then drop the folder again.</p>
+      </details>
+      <details><summary>The name she wanted is taken</summary>
+        <p>Every <code>.vercel.app</code> address is unique, like a shop address. Add something, like <code>lizzies-cakes-2026</code>.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Explain back -->
+  <section id="explain">
+    <div class="section-head"><h2>Explain back</h2><span class="time">10 min</span></div>
+    <ul class="checks" data-group="explain">
+      <li><input type="checkbox" id="exp-1"><label for="exp-1">She explains hosting to mum in one sentence, using the kitchen and the shop window.</label></li>
+      <li><input type="checkbox" id="exp-2"><label for="exp-2">She answers the questions on her sheet (below), out loud or written.</label></li>
+      <li><input type="checkbox" id="exp-3"><label for="exp-3">She writes down her site's link, so she can find it again.</label></li>
+    </ul>
+  </section>
+
+  <!-- Lizzie's sheet -->
+  <section id="sheet">
+    <div class="section-head"><h2>Lizzie's sheet</h2><span class="time">copy or print this part</span></div>
+    <div class="kid-sheet">
+      <h3>Hosting words</h3>
+      <dl class="words">
+        <div><dt>hosting</dt><dd>Putting your website in a shop window, so anyone can see it.</dd></div>
+        <div><dt>host</dt><dd>The company whose computers keep your site open, like Vercel.</dd></div>
+        <div><dt>URL (address)</dt><dd>Where people find your site, like <code>lilelus.vercel.app</code>.</dd></div>
+        <div><dt>deploy</dt><dd>Sending your site to the host.</dd></div>
+        <div><dt>live</dt><dd>On the internet now. People can see it.</dd></div>
+        <div><dt>index.html</dt><dd>The front door. The first page people see.</dd></div>
+      </dl>
+
+      <h3 style="margin-top:26px">Questions</h3>
+      <ol class="qs">
+        <li>In your own words, what is hosting? <span class="blank"></span></li>
+        <li>What is your website's address? <span class="blank"></span></li>
+        <li>Why does a website need a host, instead of staying on your laptop? <span class="blank"></span></li>
+        <li>What's one thing you should never put on a public website? <span class="blank"></span></li>
+      </ol>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  const KEY = "hosting-session-checks";
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { saved = {}; }
+
+  const boxes = document.querySelectorAll('input[type="checkbox"]');
+  function paint(box) {
+    const step = box.closest(".commit");
+    if (step) step.classList.toggle("is-done", box.checked);
+  }
+  boxes.forEach(function (box) {
+    if (saved[box.id]) box.checked = true;
+    paint(box);
+    box.addEventListener("change", function () {
+      saved[box.id] = box.checked;
+      paint(box);
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) { /* not saved: fine */ }
+    });
+  });
+
+  document.querySelectorAll(".show-answer").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var ans = document.getElementById(btn.getAttribute("aria-controls"));
+      var open = ans.hidden;
+      ans.hidden = !open;
+      btn.setAttribute("aria-expanded", String(open));
+      btn.textContent = open ? "Hide answer" : "Show answer";
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
