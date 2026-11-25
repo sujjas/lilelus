@@ -154,6 +154,9 @@ a { color: inherit; }
   box-shadow: var(--shadow);
 }
 .hero-plate .ill { width: 74%; height: auto; aspect-ratio: 200 / 170; color: var(--ink); }
+/* A real photo in the hero fills the whole circle */
+.hero-plate:has(img) { overflow: hidden; }
+.hero-plate img { width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
 .hero-chip {
   position: absolute;
   width: 32%; aspect-ratio: 1;
