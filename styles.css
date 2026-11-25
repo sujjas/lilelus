@@ -199,7 +199,9 @@ a { color: inherit; }
 .card-media .ill, .mini-media .ill { width: 72%; height: auto; aspect-ratio: 200 / 170; transition: transform .35s ease; }
 .card:hover .card-media .ill { transform: scale(1.05) rotate(-2deg); }
 /* Real photos dropped into a card fill the frame */
-.card-media img, .mini-media img { width: 100%; height: 100%; object-fit: cover; }
+.card-media, .mini-media { position: relative; overflow: hidden; }
+/* Absolute so a tall photo can't stretch the frame taller than the drawings */
+.card-media img, .mini-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
 .card-body { display: flex; flex-direction: column; gap: 4px; padding: 22px 22px 24px; flex: 1; }
 .card-body p { color: var(--ink-soft); font-size: .97rem; }
