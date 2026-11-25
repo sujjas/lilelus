@@ -154,6 +154,9 @@ a { color: inherit; }
   box-shadow: var(--shadow);
 }
 .hero-plate .ill { width: 74%; height: auto; aspect-ratio: 200 / 170; color: var(--ink); }
+/* A real photo in the hero sits in a tall rounded frame so the whole cake shows */
+.hero-plate:has(img) { overflow: hidden; inset: 2% 16%; border-radius: 28px; }
+.hero-plate img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .hero-chip {
   position: absolute;
   width: 32%; aspect-ratio: 1;
